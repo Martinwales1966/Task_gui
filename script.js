@@ -1,39 +1,52 @@
-// Dummy data
-const tasks = [
-    { name: "Task A", time: "9:00 AM" },
-    { name: "Task B", time: "11:00 AM" },
-    { name: "Task C", time: "2:00 PM" }
-];
-
-const allocatedResources = [
-    { name: "John", task: "Task A" },
-    { name: "Maria", task: "Task B" },
-    { name: "Leo", task: "Task C" }
-];
-
-const availableResources = [
-    { name: "Emma", idleHours: 4 },
-    { name: "Liam", idleHours: 2 },
-    { name: "Sophia", idleHours: 1 }
-];
-
-// Sort available resources by idle time (descending)
-availableResources.sort((a, b) => b.idleHours - a.idleHours);
-
-// Helper to create list items
-function populateList(containerId, items, formatter) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = "";
-    items.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = formatter(item);
-        container.appendChild(li);
-    });
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f0f5;
+  margin: 0;
+  padding: 0;
 }
 
-// Populate dashboard
-window.onload = function () {
-    populateList("taskList", tasks, t => `${t.name} - ${t.time}`);
-    populateList("allocatedList", allocatedResources, r => `${r.name} - ${r.task}`);
-    populateList("availableList", availableResources, r => `${r.name} - Idle ${r.idleHours}h`);
-};
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid #007bff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+}
