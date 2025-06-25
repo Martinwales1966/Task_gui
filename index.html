@@ -7,23 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Task Dashboard</h1>
-        </header>
-        <main>
-            <section class="stats">
-                <div class="card">Tasks: <span id="taskCount">0</span></div>
-                <div class="card">Completed: <span id="completedCount">0</span></div>
-            </section>
-            <section class="task-list">
-                <h2>Your Tasks</h2>
-                <ul id="tasks"></ul>
-                <input type="text" id="newTask" placeholder="Add new task...">
-                <button onclick="addTask()">Add Task</button>
-            </section>
-        </main>
+    <!-- Top Broadcast Message -->
+    <div class="broadcast">
+        🔔 Welcome! System maintenance scheduled for Friday.
     </div>
+
+    <div class="container">
+        <h1>Task Management Dashboard</h1>
+
+        <!-- 3 Column Layout -->
+        <div class="columns">
+            <div class="column">
+                <h2>Tasks Booked</h2>
+                <ul>
+                    <li>Task A - 9:00 AM</li>
+                    <li>Task B - 11:00 AM</li>
+                    <li>Task C - 2:00 PM</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>Resources Allocated</h2>
+                <ul>
+                    <li>John - Task A</li>
+                    <li>Maria - Task B</li>
+                    <li>Leo - Task C</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2>Available Resources</h2>
+                <ul>
+                    <li>Emma - Idle 4h</li>
+                    <li>Liam - Idle 2h</li>
+                    <li>Sophia - Idle 1h</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
