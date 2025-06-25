@@ -1,49 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Top Broadcast Message -->
-    <div class="broadcast">
-        🔔 Welcome! System maintenance scheduled for Friday.
+  <div class="container">
+    <h1>Task Dashboard</h1>
+
+    <div class="card">
+      <h2>Tasks Booked</h2>
+      <ul id="taskList"></ul>
     </div>
 
-    <div class="container">
-        <h1>Task Management Dashboard</h1>
-
-        <!-- 3 Column Layout -->
-        <div class="columns">
-            <div class="column">
-                <h2>Tasks Booked</h2>
-                <ul>
-                    <li>Task A - 9:00 AM</li>
-                    <li>Task B - 11:00 AM</li>
-                    <li>Task C - 2:00 PM</li>
-                </ul>
-            </div>
-            <div class="column">
-                <h2>Resources Allocated</h2>
-                <ul>
-                    <li>John - Task A</li>
-                    <li>Maria - Task B</li>
-                    <li>Leo - Task C</li>
-                </ul>
-            </div>
-            <div class="column">
-                <h2>Available Resources</h2>
-                <ul>
-                    <li>Emma - Idle 4h</li>
-                    <li>Liam - Idle 2h</li>
-                    <li>Sophia - Idle 1h</li>
-                </ul>
-            </div>
-        </div>
+    <div class="card">
+      <h2>Allocated Resources</h2>
+      <ul id="allocatedList"></ul>
     </div>
 
-    <script src="script.js"></script>
+    <div class="card">
+      <h2>Available Resources</h2>
+      <ul id="availableList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
