@@ -1,65 +1,35 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f9f9f9;
+const tasks = [
+  { name: "Website Audit", time: "09:00 AM" },
+  { name: "Client Call", time: "11:30 AM" },
+  { name: "UI Design", time: "3:00 PM" }
+];
+
+const allocated = [
+  { name: "Alice", task: "Website Audit" },
+  { name: "Bob", task: "UI Design" },
+  { name: "Jane", task: "Client Call" }
+];
+
+const available = [
+  { name: "Tom", idleHours: 5 },
+  { name: "Emma", idleHours: 3 },
+  { name: "Rick", idleHours: 1 }
+];
+
+available.sort((a, b) => b.idleHours - a.idleHours);
+
+function renderList(id, items, formatter) {
+  const ul = document.getElementById(id);
+  ul.innerHTML = "";
+  items.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = formatter(item);
+    ul.appendChild(li);
+  });
 }
 
-.broadcast {
-    background-color: #ffdd57;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.columns {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.column {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.column h2 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-.column ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.column ul li {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-}
-
-/* Responsive Layout */
-@media (min-width: 768px) {
-    .columns {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .column {
-        flex: 1;
-        margin: 0 10px;
-    }
-}
+window.onload = () => {
+  renderList("taskList", tasks, t => `${t.name} - ${t.time}`);
+  renderList("allocatedList", allocated, r => `${r.name} - ${r.task}`);
+  renderList("availableList", available, r => `${r.name} - Idle ${r.idleHours}h`);
+};
