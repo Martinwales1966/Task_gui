@@ -1,35 +1,69 @@
-const tasks = [
-  { name: "Website Audit", time: "09:00 AM" },
-  { name: "Client Call", time: "11:30 AM" },
-  { name: "UI Design", time: "3:00 PM" }
-];
-
-const allocated = [
-  { name: "Alice", task: "Website Audit" },
-  { name: "Bob", task: "UI Design" },
-  { name: "Jane", task: "Client Call" }
-];
-
-const available = [
-  { name: "Tom", idleHours: 5 },
-  { name: "Emma", idleHours: 3 },
-  { name: "Rick", idleHours: 1 }
-];
-
-available.sort((a, b) => b.idleHours - a.idleHours);
-
-function renderList(id, items, formatter) {
-  const ul = document.getElementById(id);
-  ul.innerHTML = "";
-  items.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = formatter(item);
-    ul.appendChild(li);
-  });
+* {
+    box-sizing: border-box;
 }
-
-window.onload = () => {
-  renderList("taskList", tasks, t => `${t.name} - ${t.time}`);
-  renderList("allocatedList", allocated, r => `${r.name} - ${r.task}`);
-  renderList("availableList", available, r => `${r.name} - Idle ${r.idleHours}h`);
-};
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    min-height: 100vh;
+}
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.card {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1 1 45%;
+    margin: 5px;
+    text-align: center;
+}
+.task-list h2 {
+    margin-bottom: 10px;
+}
+.task-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.task-input input {
+    flex: 1;
+    padding: 10px;
+}
+.task-input button {
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+ul#tasks {
+    list-style-type: none;
+    padding-left: 0;
+}
+ul#tasks li {
+    padding: 10px;
+    background: #f9f9f9;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ul#tasks li.completed {
+    text-decoration: line-through;
+    color: gray;
+}
