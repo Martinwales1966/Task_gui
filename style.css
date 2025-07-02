@@ -1,98 +1,74 @@
-/* General Reset */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fc;
+/* Container for the four columns */
+.main {
+  display: flex;
+  gap: 12px;                  /* space between each column */
+  padding: 10px 20px;
 }
 
-/* Layout grid */
-.container {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  grid-template-rows: auto 1fr;
-  height: 100vh;
+/* Nav column */
+.nav {
+  flex: 0 0 200px;
+  background-color: #2ca02c;  /* green nav */
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
 }
 
-/* Sidebar */
-.navbar {
-  background-color: #2ecc71;
-  padding-top: 10px;
+/* Shared styles for the three content panels */
+.panel {
+  flex: 1;
+  background-color: #e0f0ff;  /* light blue panels */
+  border: 2px solid #00529b;  /* dark‑blue border */
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  grid-row: 1 / span 2;
+  overflow: hidden;
 }
 
-.navbar button {
-  background: none;
-  border: none;
-  font-size: 20px;
+/* Panel headers stay dark blue */
+.panel-header {
+  background-color: #00529b;  
   color: white;
-  margin: 10px 0;
+  padding: 10px;
+}
+
+/* Item lists and filter sections */
+.filters button,
+.filters select {
+  background-color: #00529b;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  margin-left: 6px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
-.navbar button:hover {
-  color: #145a32;
+/* Ensure the list background is still light blue */
+.item-list {
+  flex: 1;
+  padding: 10px;
+  background-color: #e0f0ff;
+  overflow-y: auto;
 }
 
-/* Header */
+/* Footer stays dark style */
+.footer {
+  background-color: #00529b;
+  color: white;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Keep your header bar dark blue too */
 .header {
+  background-color: #00529b;
+  color: white;
+}
+
+/* Buttons in header */
+.header .btn {
   background-color: #004080;
   color: white;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  grid-column: 2 / 3;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.header .controls {
-  display: flex;
-  gap: 10px;
-}
-
-/* Main Content Columns */
-.main {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #eef3fc;
-  grid-column: 2 / 3;
-}
-
-.column {
-  flex: 1;
-  background-color: #dceeff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px #ccc;
-}
-
-/* Column Titles */
-.column h2 {
-  margin-top: 0;
-  color: #003366;
-}
-
-/* Task Items */
-.task {
-  background-color: white;
-  padding: 8px;
-  margin-bottom: 8px;
-  border-left: 4px solid #007bff;
-  font-size: 14px;
-}
-
-/* Footer */
-.footer {
-  padding: 10px;
-  text-align: center;
-  font-size: 12px;
-  color: #444;
+  border: none;
 }
