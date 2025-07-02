@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Task Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Task Dashboard</h1>
-        </header>
-        <main>
-            <section class="stats">
-                <div class="card">
-                    <h2>Tasks</h2>
-                    <p id="taskCount">0</p>
-                </div>
-                <div class="card">
-                    <h2>Completed</h2>
-                    <p id="completedCount">0</p>
-                </div>
-            </section>
-            <section class="task-list">
-                <h2>Your Tasks</h2>
-                <ul id="tasks"></ul>
-                <div class="task-input">
-                    <input type="text" id="newTask" placeholder="Add new task..." />
-                    <button onclick="addTask()">Add Task</button>
-                </div>
-            </section>
-        </main>
+  <div class="dashboard">
+    <h1>Task Dashboard</h1>
+    <div class="card-container">
+      <div class="card">
+        <h2>Tasks Booked</h2>
+        <p>12 tasks scheduled this week</p>
+      </div>
+      <div class="card">
+        <h2>Allocated Resources</h2>
+        <p>8 team members assigned</p>
+      </div>
+      <div class="card">
+        <h2>Available Resources</h2>
+        <p>4 team members free</p>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
