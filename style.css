@@ -1,16 +1,98 @@
-/* Nav column narrower */
-<nav class="nav">
-  <ul>
-    <li title="Settings">⚙️</li>
-    <li title="Reports">📊</li>
-    <li title="Users">👥</li>
-    <li title="Locations">📍</li>
-    <li title="More">⋯</li>
-  </ul>
-</nav>
- li {
-  font-size: 1.5rem;
-  margin: 20px 0;
-  list-style: none;
+/* General Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+}
+
+/* Layout grid */
+.container {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+/* Sidebar */
+.navbar {
+  background-color: #2ecc71;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 1 / span 2;
+}
+
+.navbar button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  margin: 10px 0;
   cursor: pointer;
+}
+
+.navbar button:hover {
+  color: #145a32;
+}
+
+/* Header */
+.header {
+  background-color: #004080;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-column: 2 / 3;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.header .controls {
+  display: flex;
+  gap: 10px;
+}
+
+/* Main Content Columns */
+.main {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #eef3fc;
+  grid-column: 2 / 3;
+}
+
+.column {
+  flex: 1;
+  background-color: #dceeff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #ccc;
+}
+
+/* Column Titles */
+.column h2 {
+  margin-top: 0;
+  color: #003366;
+}
+
+/* Task Items */
+.task {
+  background-color: white;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-left: 4px solid #007bff;
+  font-size: 14px;
+}
+
+/* Footer */
+.footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: #444;
 }
