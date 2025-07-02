@@ -2,28 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Control Desk Wireframe</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="dashboard">
-    <h1>Task Dashboard</h1>
-    <div class="card-container">
-      <div class="card">
-        <h2>Tasks Booked</h2>
-        <p>12 tasks scheduled this week</p>
-      </div>
-      <div class="card">
-        <h2>Allocated Resources</h2>
-        <p>8 team members assigned</p>
-      </div>
-      <div class="card">
-        <h2>Available Resources</h2>
-        <p>4 team members free</p>
-      </div>
+  <!-- Header Bar -->
+  <header class="header">
+    <div class="header-left">
+      <strong>CONTROL DESK</strong>
+      <button class="btn">New Task</button>
+      <button class="btn">Scheduled</button>
     </div>
+    <div class="header-center">
+      <div class="broadcast">🔔 Broadcast message to PC users</div>
+    </div>
+    <div class="header-right">
+      <select><option>Site: All</option></select>
+      <span class="user-info">User: Ward‑A (Requester)</span>
+    </div>
+  </header>
+
+  <!-- Main 4‐Column Layout -->
+  <div class="main">
+    <nav class="col nav">
+      <ul>
+        <li>Settings</li>
+        <li>Reports</li>
+        <li>Users</li>
+        <li>Locations</li>
+        <li>…</li>
+      </ul>
+    </nav>
+
+    <section class="col panel">
+      <div class="panel-header">
+        <h2>Pending Tasks</h2>
+        <div class="filters">
+          <button>↕</button>
+          <select><option>Type: All</option></select>
+        </div>
+      </div>
+      <ul class="item-list">
+        <li>
+          <span class="time">02/07/25 21:41</span>
+          <span class="meta">Req A | W‑A→W‑B | High | Chair | Patient</span>
+          <a href="#">Details ↗</a>
+        </li>
+        <!-- more items… -->
+      </ul>
+    </section>
+
+    <section class="col panel">
+      <div class="panel-header">
+        <h2>In Progress Tasks</h2>
+        <div class="filters">
+          <button>↕</button>
+          <select><option>Type: All</option></select>
+        </div>
+      </div>
+      <ul class="item-list">
+        <li>
+          <span class="time">01/07/25 10:00</span>
+          <span class="meta">W‑B→W‑C | High | Patient | Alice</span>
+        </li>
+        <!-- more items… -->
+      </ul>
+    </section>
+
+    <section class="col panel blue">
+      <div class="panel-header">
+        <h2>Resources</h2>
+        <div class="filters">
+          <select><option>Status: All</option></select>
+        </div>
+      </div>
+      <ul class="item-list">
+        <li><span class="meta">John – Idle 2h | Last Loc: W‑C</span></li>
+        <!-- more items… -->
+      </ul>
+    </section>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Footer Attribution -->
+  <footer class="footer">
+    Designed by M Henson
+  </footer>
 </body>
 </html>
