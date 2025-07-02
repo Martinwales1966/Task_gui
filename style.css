@@ -1,15 +1,14 @@
 /* Nav column narrower */
-.nav {
-  flex: 0 0 60px;            /* shrink width from 200px down to 60px */
-  background-color: #2ca02c;  /* green */
-  color: white;
-  padding: 10px 0;            /* less horizontal padding */
-  border-radius: 4px;
-  text-align: center;         /* center icons */
-}
-
-/* Increase icon size */
-.nav li {
+<nav class="nav">
+  <ul>
+    <li title="Settings">⚙️</li>
+    <li title="Reports">📊</li>
+    <li title="Users">👥</li>
+    <li title="Locations">📍</li>
+    <li title="More">⋯</li>
+  </ul>
+</nav>
+ li {
   font-size: 1.5rem;
   margin: 20px 0;
   list-style: none;
