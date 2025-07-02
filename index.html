@@ -2,88 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="header">
-    <div class="header-title"><strong>Control Desk</strong></div>
-    <div class="header-buttons">
-      <button>New Task</button>
-      <button>Scheduled</button>
+  <div class="container">
+    <!-- Sidebar with icons -->
+    <div class="navbar">
+      <button title="Settings"><i class="fas fa-cog"></i></button>
+      <button title="Reports"><i class="fas fa-chart-line"></i></button>
+      <button title="Users"><i class="fas fa-users"></i></button>
+      <button title="Locations"><i class="fas fa-map-marker-alt"></i></button>
     </div>
-    <div class="broadcast">🚨 Important Info for Requesters</div>
-    <div class="filter-box">
-      <label>Site:
+
+    <!-- Header -->
+    <div class="header">
+      <h1>CONTROL DESK</h1>
+      <div class="controls">
+        <button>New Task</button>
+        <button>Scheduled</button>
+        <span>📢 Broadcast</span>
         <select>
-          <option selected>All</option>
-          <option>Site A</option>
-          <option>Site B</option>
+          <option>Site: All</option>
         </select>
-      </label>
+        <span>User: Ward-A (Requester)</span>
+      </div>
     </div>
-    <div class="user-info">Logged in as: Requester A</div>
+
+    <!-- Main 3 Columns -->
+    <div class="main">
+      <!-- Column 1 -->
+      <div class="column">
+        <h2>Pending Tasks</h2>
+        <div class="task">
+          02/07/25 21:41 | Req A | W-A→W-B | High | Chair | Patient<br />
+          <a href="#">Details ↗</a>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="column">
+        <h2>In Progress Tasks</h2>
+        <div class="task">
+          01/07/25 10:00 | W-B→W-C | High | Patient | Alice
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="column">
+        <h2>Resources</h2>
+        <div class="task">
+          John – Idle 2h | Last Loc: W-C
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="main">
-    <!-- ✅ New slim green nav bar -->
-    <nav class="nav">
-      <ul>
-        <li title="Settings">⚙️</li>
-        <li title="Reports">📊</li>
-        <li title="Users">👥</li>
-        <li title="Locations">📍</li>
-        <li title="More">⋯</li>
-      </ul>
-    </nav>
-
-    <div class="column pending">
-      <div class="column-header">
-        <h2>Pending Tasks</h2>
-        <div class="column-filters">
-          <button>Sort 🔼</button>
-          <select>
-            <option>All Types</option>
-            <option>High</option>
-            <option>Emergency</option>
-          </select>
-        </div>
-      </div>
-      <div class="task">
-        02/07/25 21:41 | Req A | Ward A ➝ Ward B | High | Patient Name | 🦽
-      </div>
-    </div>
-
-    <div class="column in-progress">
-      <div class="column-header">
-        <h2>In Progress</h2>
-        <div class="column-filters">
-          <button>Sort 🔽</button>
-          <select>
-            <option>All Types</option>
-            <option>High</option>
-          </select>
-        </div>
-      </div>
-      <div class="task">
-        02/07/25 21:50 | Req B | From X ➝ Y | Medium | Staff: Jones
-      </div>
-    </div>
-
-    <div class="column resources">
-      <div class="column-header">
-        <h2>Resources</h2>
-        <div class="column-filters">
-          <button>Sort 🔼</button>
-          <select>
-            <option>All</option>
-            <option>On Task</option>
-            <option>Break</option>
-          </select>
-        </div>
-      </div>
-      <div class="task">
-        Nurse A | On Task | Last: Ward A
-      </div>
-    </d
+  <div class="footer">
+    Designed by M Henson
+  </div>
+</body>
+</html>
