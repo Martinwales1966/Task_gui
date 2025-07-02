@@ -1,120 +1,74 @@
-/* Reset & Box Sizing */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* Body */
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #333;
-}
-
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 20px;
-  flex-wrap: wrap;
-}
-.header-left,
-.header-center,
-.header-right {
-  display: flex;
-  align-items: center;
-}
-.header-left { flex: 1; gap: 10px; }
-.header-center { flex: 1; justify-content: center; }
-.header-right { flex: 1; justify-content: flex-end; gap: 10px; }
-
-.btn {
-  padding: 5px 10px;
-  border: 1px solid #888;
-  background: #eee;
-  cursor: pointer;
-}
-
-.broadcast {
-  background: #ffebcc;
-  padding: 5px 10px;
-  border: 1px solid #ffcc80;
-}
-
-/* Main layout */
+/* Container for the four columns */
 .main {
   display: flex;
-  min-height: calc(100vh - 120px);
+  gap: 12px;                  /* space between each column */
+  padding: 10px 20px;
 }
-.col {
-  padding: 10px;
-}
-.nav {
-  width: 200px;
-  background: #d9f2d9;
-}
-.nav ul { list-style: none; }
-.nav li { padding: 8px 0; }
 
-/* Panels */
+/* Nav column */
+.nav {
+  flex: 0 0 200px;
+  background-color: #2ca02c;  /* green nav */
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+/* Shared styles for the three content panels */
 .panel {
   flex: 1;
-  background: #fff;
-  margin-left: 10px;
-  border: 1px solid #ddd;
+  background-color: #e0f0ff;  /* light blue panels */
+  border: 2px solid #00529b;  /* dark‑blue border */
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
-.panel.blue {
-  background: #e6f2ff;
-}
+
+/* Panel headers stay dark blue */
 .panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #00529b;  
+  color: white;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
-.panel-header h2 {
-  font-size: 1.1rem;
-}
+
+/* Item lists and filter sections */
 .filters button,
 .filters select {
-  margin-left: 5px;
+  background-color: #00529b;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  margin-left: 6px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-/* Item list */
+/* Ensure the list background is still light blue */
 .item-list {
-  list-style: none;
+  flex: 1;
   padding: 10px;
+  background-color: #e0f0ff;
   overflow-y: auto;
 }
-.item-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 0.9rem;
-  display: flex;
-  justify-content: space-between;
-}
-.item-list li .time {
-  font-weight: bold;
-  margin-right: 10px;
-}
-.item-list li .meta {
-  flex: 1;
-}
 
-/* Footer */
+/* Footer stays dark style */
 .footer {
+  background-color: #00529b;
+  color: white;
+  padding: 8px;
   text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
-  color: #666;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main { flex-direction: column; }
-  .nav { width: 100%; margin-bottom: 10px; }
-  .panel { margin-left: 0; margin-bottom: 10px; }
+/* Keep your header bar dark blue too */
+.header {
+  background-color: #00529b;
+  color: white;
+}
+
+/* Buttons in header */
+.header .btn {
+  background-color: #004080;
+  color: white;
+  border: none;
 }
