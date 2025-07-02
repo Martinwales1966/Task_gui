@@ -1,74 +1,17 @@
-/* Container for the four columns */
-.main {
-  display: flex;
-  gap: 12px;                  /* space between each column */
-  padding: 10px 20px;
-}
-
-/* Nav column */
+/* Nav column narrower */
 .nav {
-  flex: 0 0 200px;
-  background-color: #2ca02c;  /* green nav */
+  flex: 0 0 60px;            /* shrink width from 200px down to 60px */
+  background-color: #2ca02c;  /* green */
   color: white;
-  padding: 15px;
+  padding: 10px 0;            /* less horizontal padding */
   border-radius: 4px;
+  text-align: center;         /* center icons */
 }
 
-/* Shared styles for the three content panels */
-.panel {
-  flex: 1;
-  background-color: #e0f0ff;  /* light blue panels */
-  border: 2px solid #00529b;  /* dark‑blue border */
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Panel headers stay dark blue */
-.panel-header {
-  background-color: #00529b;  
-  color: white;
-  padding: 10px;
-}
-
-/* Item lists and filter sections */
-.filters button,
-.filters select {
-  background-color: #00529b;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  margin-left: 6px;
-  border-radius: 3px;
+/* Increase icon size */
+.nav li {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  list-style: none;
   cursor: pointer;
-}
-
-/* Ensure the list background is still light blue */
-.item-list {
-  flex: 1;
-  padding: 10px;
-  background-color: #e0f0ff;
-  overflow-y: auto;
-}
-
-/* Footer stays dark style */
-.footer {
-  background-color: #00529b;
-  color: white;
-  padding: 8px;
-  text-align: center;
-}
-
-/* Keep your header bar dark blue too */
-.header {
-  background-color: #00529b;
-  color: white;
-}
-
-/* Buttons in header */
-.header .btn {
-  background-color: #004080;
-  color: white;
-  border: none;
 }
