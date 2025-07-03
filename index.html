@@ -1,82 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
-  <div class="app-container">
+  <div class="navbar">
+    <ul>
+      <li title="Search">🔍</li>
+      <li title="Settings">⚙️</li>
+      <li title="User">👤</li>
+      <li title="Task Type">🗂️</li>
+      <li title="Reports">📊</li>
+      <li title="Locations">📍</li>
+      <li title="Zones">🗺️</li>
+      <li title="Wheelchair Tracking">♿</li>
+      <li title="Specialties">🏥</li>
+    </ul>
+  </div>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="sidebar">
-      <a href="#" title="Search">🔍</a>
-      <a href="#" title="Settings">⚙️</a>
-      <a href="#" title="User">👤</a>
-      <a href="#" title="Task Type">🗂️</a>
-      <a href="#" title="Reports">📊</a>
-      <a href="#" title="Locations">🗺️</a>
-      <a href="#" title="Zones">🧭</a>
-      <a href="#" title="Wheelchair Tracking">♿</a>
-      <a href="#" title="Specialties">🏥</a>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-      <header class="header">
-        <div class="header-left">
-          <h1>CONTROL DESK</h1>
-          <button>New Task</button>
-          <button>Scheduled</button>
-        </div>
-        <div class="user-info">
-          Site: <select><option>All</option></select>
-          User: Ward-A (Requester)
-        </div>
-      </header>
-
-      <!-- BROADCAST BAR -->
-      <div class="broadcast">
-        <label for="broadcast-input">📢</label>
-        <input id="broadcast-input" type="text" placeholder="Broadcast message to PC users..." />
-      </div>
-
-      <!-- TASK COLUMNS -->
-      <div class="columns">
-        <!-- Pending Tasks -->
-        <div class="column">
-          <h2>Pending Tasks</h2>
-          <select><option>Type: All</option></select>
-          <ul>
-            <li>02/07/25 21:41 | Req A | W-A→W-B | High | Chair | Patient | <a href="#">Details ↗</a></li>
-          </ul>
-        </div>
-
-        <!-- In Progress -->
-        <div class="column">
-          <h2>In Progress Tasks</h2>
-          <select><option>Type: All</option></select>
-          <ul>
-            <li>01/07/25 10:00 | W-B→W-C | High | Patient | Alice</li>
-          </ul>
-        </div>
-
-        <!-- Resources -->
-        <div class="column">
-          <h2>Resources</h2>
-          <select><option>Status: All</option></select>
-          <ul>
-            <li>John – Idle 2h | Last Loc: W-C</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <footer>
-        Designed by M Henson
-      </footer>
+  <div class="main-content">
+    <div class="header">
+      <h1>CONTROL DESK</h1>
+      <button>New Task</button>
+      <button>Scheduled</button>
+      <select><option>Site: All</option></select>
+      <select><option>User: Ward-A</option></select>
     </div>
+
+    <div class="broadcast">
+      <label>📢 Broadcast message to PC users</label>
+    </div>
+
+    <!-- Columns go here... -->
   </div>
 </body>
-</html>
