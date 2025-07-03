@@ -2,65 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Control Desk</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar with icons -->
-    <div class="navbar">
-      <button title="Settings"><i class="fas fa-cog"></i></button>
-      <button title="Reports"><i class="fas fa-chart-line"></i></button>
-      <button title="Users"><i class="fas fa-users"></i></button>
-      <button title="Locations"><i class="fas fa-map-marker-alt"></i></button>
-    </div>
+  <div class="app-container">
 
-    <!-- Header -->
-    <div class="header">
-      <h1>CONTROL DESK</h1>
-      <div class="controls">
-        <button>New Task</button>
-        <button>Scheduled</button>
-        <span>📢 Broadcast</span>
-        <select>
-          <option>Site: All</option>
-        </select>
-        <span>User: Ward-A (Requester)</span>
+    <!-- NAVIGATION BAR -->
+    <nav class="sidebar">
+      <a href="#" title="Search">🔍</a>
+      <a href="#" title="Settings">⚙️</a>
+      <a href="#" title="User">👤</a>
+      <a href="#" title="Task Type">🗂️</a>
+      <a href="#" title="Reports">📊</a>
+      <a href="#" title="Locations">🗺️</a>
+      <a href="#" title="Zones">🧭</a>
+      <a href="#" title="Wheelchair Tracking">♿</a>
+      <a href="#" title="Specialties">🏥</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <h1>CONTROL DESK</h1>
+          <button>New Task</button>
+          <button>Scheduled</button>
+        </div>
+        <div class="user-info">
+          Site: <select><option>All</option></select>
+          User: Ward-A (Requester)
+        </div>
+      </header>
+
+      <!-- BROADCAST BAR -->
+      <div class="broadcast">
+        <label for="broadcast-input">📢</label>
+        <input id="broadcast-input" type="text" placeholder="Broadcast message to PC users..." />
       </div>
-    </div>
 
-    <!-- Main 3 Columns -->
-    <div class="main">
-      <!-- Column 1 -->
-      <div class="column">
-        <h2>Pending Tasks</h2>
-        <div class="task">
-          02/07/25 21:41 | Req A | W-A→W-B | High | Chair | Patient<br />
-          <a href="#">Details ↗</a>
+      <!-- TASK COLUMNS -->
+      <div class="columns">
+        <!-- Pending Tasks -->
+        <div class="column">
+          <h2>Pending Tasks</h2>
+          <select><option>Type: All</option></select>
+          <ul>
+            <li>02/07/25 21:41 | Req A | W-A→W-B | High | Chair | Patient | <a href="#">Details ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- In Progress -->
+        <div class="column">
+          <h2>In Progress Tasks</h2>
+          <select><option>Type: All</option></select>
+          <ul>
+            <li>01/07/25 10:00 | W-B→W-C | High | Patient | Alice</li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="column">
+          <h2>Resources</h2>
+          <select><option>Status: All</option></select>
+          <ul>
+            <li>John – Idle 2h | Last Loc: W-C</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Column 2 -->
-      <div class="column">
-        <h2>In Progress Tasks</h2>
-        <div class="task">
-          01/07/25 10:00 | W-B→W-C | High | Patient | Alice
-        </div>
-      </div>
-
-      <!-- Column 3 -->
-      <div class="column">
-        <h2>Resources</h2>
-        <div class="task">
-          John – Idle 2h | Last Loc: W-C
-        </div>
-      </div>
+      <!-- Footer -->
+      <footer>
+        Designed by M Henson
+      </footer>
     </div>
-  </div>
-
-  <div class="footer">
-    Designed by M Henson
   </div>
 </body>
 </html>
