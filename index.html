@@ -1,31 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Control Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <div class="navbar">
-    <ul>
-      <li title="Search">🔍</li>
-      <li title="Settings">⚙️</li>
-      <li title="User">👤</li>
-      <li title="Task Type">🗂️</li>
-      <li title="Reports">📊</li>
-      <li title="Locations">📍</li>
-      <li title="Zones">🗺️</li>
-      <li title="Wheelchair Tracking">♿</li>
-      <li title="Specialties">🏥</li>
-    </ul>
-  </div>
+  <div class="layout">
+    <!-- NAV -->
+    <nav class="navbar">
+      <ul>
+        <li><img src="icons/search.png" alt="Search" /></li>
+        <li><img src="icons/settings.png" alt="Settings" /></li>
+        <li><img src="icons/user.png" alt="User" /></li>
+        <li><img src="icons/tasktype.png" alt="Task Type" /></li>
+        <li><img src="icons/reports.png" alt="Reports" /></li>
+        <li><img src="icons/location.png" alt="Locations" /></li>
+        <li><img src="icons/zones.png" alt="Zones" /></li>
+        <li><img src="icons/wheelchair.png" alt="Wheelchairs" /></li>
+        <li><img src="icons/speciality.png" alt="Specialities" /></li>
+      </ul>
+    </nav>
 
-  <div class="main-content">
-    <div class="header">
-      <h1>CONTROL DESK</h1>
-      <button>New Task</button>
-      <button>Scheduled</button>
-      <select><option>Site: All</option></select>
-      <select><option>User: Ward-A</option></select>
-    </div>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="header">
+        <h1>CONTROL DESK</h1>
+        <div class="controls">
+          <button>New Task</button>
+          <button>Scheduled</button>
+          <select><option>Site: All</option></select>
+          <select><option>User: Ward-A</option></select>
+        </div>
+      </header>
 
-    <div class="broadcast">
-      <label>📢 Broadcast message to PC users</label>
-    </div>
+      <!-- BROADCAST -->
+      <div class="broadcast">
+        📢 Broadcast message to PC users
+      </div>
 
-    <!-- Columns go here... -->
+      <!-- Columns go here -->
+      <section class="columns">
+        <!-- Pending Tasks -->
+        <div class="column">
+          <h2>Pending Tasks</h2>
+          <!-- tasks -->
+        </div>
+
+        <!-- In Progress -->
+        <div class="column">
+          <h2>In Progress Tasks</h2>
+        </div>
+
+        <!-- Resources -->
+        <div class="column">
+          <h2>Resources</h2>
+        </div>
+      </section>
+
+      <footer>Designed by M Henson</footer>
+    </main>
   </div>
 </body>
+</html>
