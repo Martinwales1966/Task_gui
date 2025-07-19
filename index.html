@@ -2,30 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 </head>
 <body>
-  <div class="layout">
-    <!-- NAV -->
-    <nav class="navbar">
+
+  <div class="container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
       <ul>
-        <li><img src="icons/search.png" alt="Search" /></li>
-        <li><img src="icons/settings.png" alt="Settings" /></li>
-        <li><img src="icons/user.png" alt="User" /></li>
-        <li><img src="icons/tasktype.png" alt="Task Type" /></li>
-        <li><img src="icons/reports.png" alt="Reports" /></li>
-        <li><img src="icons/location.png" alt="Locations" /></li>
-        <li><img src="icons/zones.png" alt="Zones" /></li>
-        <li><img src="icons/wheelchair.png" alt="Wheelchairs" /></li>
-        <li><img src="icons/speciality.png" alt="Specialities" /></li>
+        <li><i class="fas fa-search"></i> Search</li>
+        <li><i class="fas fa-cog"></i> Settings</li>
+        <li><i class="fas fa-user"></i> User</li>
+        <li><i class="fas fa-tasks"></i> Task Type</li>
+        <li><i class="fas fa-chart-bar"></i> Reports</li>
+        <li><i class="fas fa-map-marker-alt"></i> Locations</li>
+        <li><i class="fas fa-map"></i> Zones</li>
+        <li><i class="fas fa-wheelchair"></i> Wheelchairs</li>
+        <li><i class="fas fa-briefcase-medical"></i> Specialities</li>
       </ul>
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- Main content -->
     <main class="main-content">
-      <header class="header">
+      <header class="top-bar">
         <h1>CONTROL DESK</h1>
         <div class="controls">
           <button>New Task</button>
@@ -35,32 +40,41 @@
         </div>
       </header>
 
-      <!-- BROADCAST -->
-      <div class="broadcast">
-        📢 Broadcast message to PC users
+      <div class="broadcast-box">
+        <i class="fas fa-bullhorn"></i> Broadcast message to PC users
       </div>
 
-      <!-- Columns go here -->
-      <section class="columns">
-        <!-- Pending Tasks -->
+      <div class="columns">
+        <!-- Pending -->
         <div class="column">
           <h2>Pending Tasks</h2>
-          <!-- tasks -->
+          <ul id="pending-tasks">
+            <li>📅 02/07/25 21:41 | Req A | W-A → W-B | High | Chair | Patient</li>
+          </ul>
         </div>
 
         <!-- In Progress -->
         <div class="column">
           <h2>In Progress Tasks</h2>
+          <ul id="in-progress-tasks">
+            <li>🕒 01/07/25 10:00 | W-B → W-C | High | Alice</li>
+          </ul>
         </div>
 
         <!-- Resources -->
         <div class="column">
           <h2>Resources</h2>
+          <ul>
+            <li>👤 John – Idle 2h | Last Loc: W-C</li>
+            <li>👤 Sarah – On Task | Last Loc: W-B</li>
+          </ul>
         </div>
-      </section>
+      </div>
 
       <footer>Designed by M Henson</footer>
     </main>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
