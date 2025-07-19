@@ -6,6 +6,7 @@ body {
 
 .container {
   display: flex;
+  min-height: 100vh;
 }
 
 .sidebar {
@@ -26,25 +27,32 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .main-content {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .top-bar {
   background-color: #003366;
   color: white;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-radius: 5px;
+}
+
+.top-bar h1 {
+  margin: 0;
 }
 
 .controls {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .broadcast-box {
@@ -52,9 +60,8 @@ body {
   padding: 10px;
   margin: 10px 0;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 100%;
+  border-radius: 5px;
 }
 
 .columns {
@@ -76,6 +83,8 @@ body {
 }
 
 footer {
-  margin-top: 20px;
+  margin-top: auto;
   font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
 }
