@@ -1,80 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-</head>
-<body>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eef1f7;
+}
 
-  <div class="container">
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <ul>
-        <li><i class="fas fa-search"></i> Search</li>
-        <li><i class="fas fa-cog"></i> Settings</li>
-        <li><i class="fas fa-user"></i> User</li>
-        <li><i class="fas fa-tasks"></i> Task Type</li>
-        <li><i class="fas fa-chart-bar"></i> Reports</li>
-        <li><i class="fas fa-map-marker-alt"></i> Locations</li>
-        <li><i class="fas fa-map"></i> Zones</li>
-        <li><i class="fas fa-wheelchair"></i> Wheelchairs</li>
-        <li><i class="fas fa-briefcase-medical"></i> Specialities</li>
-      </ul>
-    </nav>
+.container {
+  display: flex;
+}
 
-    <!-- Main content -->
-    <main class="main-content">
-      <header class="top-bar">
-        <h1>CONTROL DESK</h1>
-        <div class="controls">
-          <button>New Task</button>
-          <button>Scheduled</button>
-          <select><option>Site: All</option></select>
-          <select><option>User: Ward-A</option></select>
-        </div>
-      </header>
+.sidebar {
+  width: 200px;
+  background-color: #003366;
+  color: white;
+  padding-top: 20px;
+}
 
-      <div class="broadcast-box">
-        <i class="fas fa-bullhorn"></i> Broadcast message to PC users
-      </div>
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
 
-      <div class="columns">
-        <!-- Pending -->
-        <div class="column">
-          <h2>Pending Tasks</h2>
-          <ul id="pending-tasks">
-            <li>📅 02/07/25 21:41 | Req A | W-A → W-B | High | Chair | Patient</li>
-          </ul>
-        </div>
+.sidebar li {
+  padding: 12px 16px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-        <!-- In Progress -->
-        <div class="column">
-          <h2>In Progress Tasks</h2>
-          <ul id="in-progress-tasks">
-            <li>🕒 01/07/25 10:00 | W-B → W-C | High | Alice</li>
-          </ul>
-        </div>
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
 
-        <!-- Resources -->
-        <div class="column">
-          <h2>Resources</h2>
-          <ul>
-            <li>👤 John – Idle 2h | Last Loc: W-C</li>
-            <li>👤 Sarah – On Task | Last Loc: W-B</li>
-          </ul>
-        </div>
-      </div>
+.top-bar {
+  background-color: #003366;
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-      <footer>Designed by M Henson</footer>
-    </main>
-  </div>
+.controls {
+  display: flex;
+  gap: 10px;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.broadcast-box {
+  background-color: #a6d6f4;
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.columns {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.column {
+  flex: 1;
+  background-color: #dbe9f4;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.column h2 {
+  margin-top: 0;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+}
