@@ -1,4 +1,4 @@
-// script.js
+// script.js (fixed)
 
 function getCurrentTime() {
   const now = new Date();
@@ -22,7 +22,7 @@ function getRandomItem(arr) {
 }
 
 function generateTaskHTML(task) {
-  return `📅 ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}`;
+  return `🗕️ ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}`;
 }
 
 function generatePendingTask() {
@@ -36,13 +36,13 @@ function generatePendingTask() {
     patient: getRandomItem(patients)
   };
 
-  const pendingList = document.getElementById("pending"); // ✅ Fixed ID
+  const pendingList = document.getElementById("pending"); // ✔️ Must match HTML ID
   if (pendingList) {
     const li = document.createElement("li");
     li.textContent = generateTaskHTML(task);
     pendingList.appendChild(li);
   } else {
-    console.error("Pending list element not found!");
+    console.error("Pending list element with id 'pending' not found.");
   }
 }
 
