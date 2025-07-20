@@ -36,19 +36,21 @@ function generatePendingTask() {
     patient: getRandomItem(patients)
   };
 
-  const pendingList = document.getElementById("pending-tasks");
+  const pendingList = document.getElementById("pending"); // ✅ Fixed ID
   if (pendingList) {
     const li = document.createElement("li");
     li.textContent = generateTaskHTML(task);
     pendingList.appendChild(li);
+  } else {
+    console.error("Pending list element not found!");
   }
 }
 
 function updateClock() {
   const now = new Date();
-  const clockEl = document.getElementById("clock");
-  if (clockEl) {
-    clockEl.textContent = now.toLocaleTimeString();
+  const clock = document.getElementById("clock");
+  if (clock) {
+    clock.textContent = now.toLocaleTimeString();
   }
 }
 
