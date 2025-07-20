@@ -1,23 +1,56 @@
-function fetchData() {
-  const timestamp = new Date().toLocaleTimeString();
+// script.js
 
-  document.getElementById('pending').innerHTML = `
-    <li>📅 02/07/25 21:41 | Req A | W-A → W-B | High | Chair | Patient<br><small>Updated: ${timestamp}</small></li>
-  `;
-
-  document.getElementById('in-progress').innerHTML = `
-    <li>🕒 01/07/25 10:00 | W-B → W-C | High | Alice<br><small>Updated: ${timestamp}</small></li>
-  `;
-
-  document.getElementById('resources').innerHTML = `
-    <li>👤 John – Idle 2h | Last Loc: W-C</li>
-    <li>👤 Sarah – On Task | Last Loc: W-B</li>
-    <li>🕒 Last Update: ${timestamp}</li>
-  `;
+function getCurrentTime() {
+  const now = new Date();
+  return now.toLocaleString();
 }
 
-// Initial load
-fetchData();
+const locations = [
+  "Ward A", "Ward B", "Ward C",
+  "Theatre", "ICU", "X-Ray",
+  "MRI", "ER", "Recovery",
+  "Main Entrance", "Discharge Lounge"
+];
 
-// Refresh every 10 seconds
-setInterval(fetchData, 10000);
+const requesters = ["Req A", "Req B", "Req C", "Nurse D", "Dr. Smith"];
+const patients = ["John D.", "Anna K.", "Sam T.", "Lucy P.", "Noah M."];
+const priorities = ["High", "Very High", "Emergency"];
+const taskTypes = ["Chair", "Bed", "Wheelchair", "Escort"];
+
+function getRandomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateTaskHTML(task) {
+  return `📅 ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}`;
+}
+
+function generatePendingTask() {
+  const task = {
+    time: getCurrentTime(),
+    requester: getRandomItem(requesters),
+    from: getRandomItem(locations),
+    to: getRandomItem(locations),
+    priority: getRandomItem(priorities),
+    type: getRandomItem(taskTypes),
+    patient: getRandomItem(patients)
+  };
+
+  const pendingList = document.getElementById("pending-tasks");
+  if (pendingList) {
+    const li = document.createElement("li");
+    li.textContent = generateTaskHTML(task);
+    pendingList.appendChild(li);
+  }
+}
+
+function updateClock() {
+  const now = new Date();
+  const clockEl = document.getElementById("clock");
+  if (clockEl) {
+    clockEl.textContent = now.toLocaleTimeString();
+  }
+}
+
+setInterval(updateClock, 1000);
+setInterval(generatePendingTask, 10000);
