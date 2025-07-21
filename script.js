@@ -1,4 +1,4 @@
-// script.js (final update with full simulation)
+// script.js (final update with full simulation + dual message broadcast + clean start)
 
 let taskIdCounter = 1;
 
@@ -26,6 +26,21 @@ const resources = [
   { name: "David", status: "Available", lastLocation: "ER" }
 ];
 
+const broadcastMessages = [
+  { text: "🔴 Lifts in B Block are not operational", urgent: true },
+  { text: "⚠️ Remember to sanitise equipment between uses", urgent: false }
+];
+
+let broadcastIndex = 0;
+
+function rotateBroadcast() {
+  const msg = broadcastMessages[broadcastIndex];
+  const broadcast = document.getElementById("broadcast");
+  broadcast.textContent = msg.text;
+  broadcast.className = msg.urgent ? "broadcast urgent" : "broadcast";
+  broadcastIndex = (broadcastIndex + 1) % broadcastMessages.length;
+}
+
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -49,6 +64,22 @@ function generateTaskHTML(task) {
   const li = document.createElement("li");
   li.dataset.taskId = task.id;
   li.className = "task-item";
+  if (task.priority === "Emergency") {
+    li.classList.add("urgent");
+    document.getElementById("alert-sound")?.play();
+  }
+
+  const timer = document.createElement("span");
+  timer.textContent = "Elapsed: 0s";
+  let seconds = 0;
+  const interval = setInterval(() => {
+    seconds++;
+    timer.textContent = `Elapsed: ${seconds}s`;
+    li.classList.remove("kpi-orange", "kpi-red");
+    if (seconds > 300) li.classList.add("kpi-red");
+    else if (seconds > 180) li.classList.add("kpi-orange");
+  }, 1000);
+
   li.innerHTML = `
     <strong>${task.id}</strong> | ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}<br>
   `;
@@ -72,6 +103,7 @@ function generateTaskHTML(task) {
     if (resource) {
       resource.status = "On Task";
       resource.lastLocation = task.to;
+      clearInterval(interval);
       addToInProgress(task, resource.name);
       li.remove();
       renderResources();
@@ -83,49 +115,40 @@ function generateTaskHTML(task) {
   });
 
   cancelBtn.addEventListener("click", () => {
+    clearInterval(interval);
     li.remove();
   });
 
+  li.appendChild(timer);
   li.appendChild(dropdown);
   li.appendChild(startBtn);
   li.appendChild(holdBtn);
   li.appendChild(cancelBtn);
-if (task.priority === "Emergency") {
-  li.style.border = "2px solid red";
-  li.style.background = "#ffe5e5";
-}
 
   return li;
 }
 
 function generatePendingTask() {
+  const isEmergency = Math.random() < 0.1; // 10% chance
   const task = {
     id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
     time: getCurrentTime(),
     requester: getRandomItem(requesters),
     from: getRandomItem(locations),
     to: getRandomItem(locations),
-    priority: "Emergency", // 🔴 hardcoded for test
+    priority: isEmergency ? "Emergency" : getRandomItem(["High", "Very High"]),
     type: getRandomItem(taskTypes),
     patient: getRandomItem(patients)
   };
 
-
-// 🔴 Play alert if emergency
-if (task.priority === "Emergency") {
-  const audio = document.getElementById("emergencySound");
-  if (audio) {
-    audio.play().catch(() => {
-      console.warn("Browser blocked autoplay — requires user interaction first.");
-    });
-  }
-}
-
-
   const pendingList = document.getElementById("pending");
   if (pendingList) {
     const taskElement = generateTaskHTML(task);
-    pendingList.appendChild(taskElement);
+    if (task.priority === "Emergency") {
+      pendingList.prepend(taskElement);
+    } else {
+      pendingList.appendChild(taskElement);
+    }
   }
 }
 
@@ -139,9 +162,7 @@ function addToInProgress(task, resourceName) {
   completeBtn.textContent = "Complete";
   completeBtn.addEventListener("click", () => {
     const res = resources.find(r => r.name === resourceName);
-    if (res) {
-      res.status = "Available";
-    }
+    if (res) res.status = "Available";
     li.remove();
     renderResources();
   });
@@ -163,12 +184,14 @@ function renderResources() {
 function updateClock() {
   const now = new Date();
   const clock = document.getElementById("clock");
-  if (clock) {
-    clock.textContent = now.toLocaleTimeString();
-  }
+  if (clock) clock.textContent = now.toLocaleTimeString();
 }
 
 setInterval(updateClock, 1000);
 setInterval(generatePendingTask, 10000);
+setInterval(rotateBroadcast, 10000);
 
-document.addEventListener("DOMContentLoaded", renderResources);
+document.addEventListener("DOMContentLoaded", () => {
+  renderResources();
+  rotateBroadcast();
+});
