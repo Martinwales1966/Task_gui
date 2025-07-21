@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
@@ -23,57 +23,45 @@
       </ul>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main content -->
     <div class="main-content">
       <div class="top-bar">
         <h1>CONTROL DESK</h1>
-        <div id="clock" style="font-weight: bold;"></div>
-        <div id="broadcast" class="broadcast urgent">
-  🔴 Lifts in B Block are not operational
-</div>
-
+        <div id="clock"></div>
         <div class="controls">
-          <button>New Task</button>
+          <button id="new-task-btn">New Task</button>
           <button>Scheduled</button>
-          <select>
-            <option>Site: All</option>
-          </select>
-          <select>
-            <option>User: Ward-A</option>
-          </select>
+          <select><option>Site: All</option></select>
+          <select><option>User: Ward-A</option></select>
         </div>
-        <div class="broadcast-box">📢 Broadcast message to PC users</div>
+        <div id="broadcast" class="broadcast"></div>
       </div>
 
       <div class="columns">
-        <!-- Pending Tasks -->
+        <!-- Pending -->
         <div class="column scrollable">
           <h2>Pending Tasks</h2>
-          <ul id="pending" class="task-list"></ul>
+          <ul id="pending"></ul>
         </div>
 
         <!-- In Progress -->
         <div class="column scrollable">
-          <h2>In Progress Tasks</h2>
-          <ul id="in-progress" class="task-list"></ul>
+          <h2>In Progress</h2>
+          <ul id="in-progress"></ul>
         </div>
 
         <!-- Resources -->
-        <div class="column">
+        <div class="column narrow">
           <h2>Resources</h2>
-          <ul id="resources" class="task-list"></ul>
+          <ul id="resources"></ul>
         </div>
       </div>
 
-      <footer>
-        Designed by M Henson
-      </footer>
+      <footer>Designed by M Henson</footer>
     </div>
   </div>
 
+  <audio id="alert-sound" src="alert.mp3" preload="auto"></audio>
   <script src="script.js" defer></script>
-  <!-- Emergency Alert Sound -->
-<audio id="emergencySound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
-
 </body>
 </html>
