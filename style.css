@@ -1,19 +1,19 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #eef1f7;
+  font-family: sans-serif;
+  background: #f4f4f4;
 }
 
 .container {
   display: flex;
-  min-height: 100vh;
 }
 
 .sidebar {
   width: 200px;
-  background-color: #003366;
+  background: #333;
   color: white;
-  padding-top: 20px;
+  height: 100vh;
+  padding: 1rem 0;
 }
 
 .sidebar ul {
@@ -22,69 +22,87 @@ body {
 }
 
 .sidebar li {
-  padding: 12px 16px;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  padding: 10px;
   cursor: pointer;
 }
 
 .main-content {
   flex: 1;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .top-bar {
-  background-color: #003366;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.top-bar h1 {
-  margin: 0;
+  background: #eee;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .controls {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 0.5rem;
 }
 
 .broadcast-box {
-  background-color: #a6d6f4;
-  padding: 10px;
-  margin: 10px 0;
-  font-weight: bold;
-  width: 100%;
-  border-radius: 5px;
+  background: #fff3cd;
+  padding: 0.5rem;
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
 }
 
 .columns {
+  flex: 1;
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  margin-top: 20px;
+  overflow: hidden;
 }
 
 .column {
   flex: 1;
-  background-color: #dbe9f4;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
 }
 
-.column h2 {
-  margin-top: 0;
+.column:last-child {
+  border-right: none;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #007bff;
+  border-radius: 4px;
+  transition: opacity 0.3s;
+}
+
+.task-item.held {
+  opacity: 0.5;
+}
+
+.task-item button {
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 footer {
-  margin-top: auto;
-  font-size: 14px;
+  background: #333;
+  color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.75rem;
 }
