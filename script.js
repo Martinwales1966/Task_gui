@@ -1,4 +1,6 @@
-// script.js
+// script.js (final update with full simulation)
+
+let taskIdCounter = 1;
 
 function getCurrentTime() {
   const now = new Date();
@@ -16,76 +18,130 @@ const requesters = ["Req A", "Req B", "Req C", "Nurse D", "Dr. Smith"];
 const patients = ["John D.", "Anna K.", "Sam T.", "Lucy P.", "Noah M."];
 const priorities = ["High", "Very High", "Emergency"];
 const taskTypes = ["Chair", "Bed", "Wheelchair", "Escort"];
-const resources = ["Porter 1", "Porter 2", "Porter 3", "Nurse A", "Tech B"];
+
+const resources = [
+  { name: "Alice", status: "Available", lastLocation: "Ward A" },
+  { name: "Bob", status: "Available", lastLocation: "X-Ray" },
+  { name: "Cara", status: "Available", lastLocation: "ICU" },
+  { name: "David", status: "Available", lastLocation: "ER" }
+];
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function generateTask() {
-  return {
-    id: Date.now(),
+function createResourceDropdown(taskId) {
+  const select = document.createElement("select");
+  select.innerHTML = `<option value="">Assign Resource</option>`;
+  resources.forEach((res) => {
+    if (res.status === "Available") {
+      const option = document.createElement("option");
+      option.value = res.name;
+      option.textContent = res.name;
+      select.appendChild(option);
+    }
+  });
+  select.dataset.taskId = taskId;
+  return select;
+}
+
+function generateTaskHTML(task) {
+  const li = document.createElement("li");
+  li.dataset.taskId = task.id;
+  li.className = "task-item";
+  li.innerHTML = `
+    <strong>${task.id}</strong> | ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}<br>
+  `;
+
+  const dropdown = createResourceDropdown(task.id);
+  const startBtn = document.createElement("button");
+  const holdBtn = document.createElement("button");
+  const cancelBtn = document.createElement("button");
+
+  startBtn.textContent = "Start";
+  holdBtn.textContent = "Hold";
+  cancelBtn.textContent = "Cancel";
+
+  startBtn.disabled = true;
+  dropdown.addEventListener("change", () => {
+    startBtn.disabled = !dropdown.value;
+  });
+
+  startBtn.addEventListener("click", () => {
+    const resource = resources.find(r => r.name === dropdown.value);
+    if (resource) {
+      resource.status = "On Task";
+      resource.lastLocation = task.to;
+      addToInProgress(task, resource.name);
+      li.remove();
+      renderResources();
+    }
+  });
+
+  holdBtn.addEventListener("click", () => {
+    li.style.opacity = 0.5;
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    li.remove();
+  });
+
+  li.appendChild(dropdown);
+  li.appendChild(startBtn);
+  li.appendChild(holdBtn);
+  li.appendChild(cancelBtn);
+
+  return li;
+}
+
+function generatePendingTask() {
+  const task = {
+    id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
     time: getCurrentTime(),
     requester: getRandomItem(requesters),
     from: getRandomItem(locations),
     to: getRandomItem(locations),
     priority: getRandomItem(priorities),
     type: getRandomItem(taskTypes),
-    patient: getRandomItem(patients),
+    patient: getRandomItem(patients)
   };
-}
 
-function createTaskElement(task, stage) {
-  const li = document.createElement("li");
-  li.textContent = `🗕️ ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}`;
-
-  const button = document.createElement("button");
-  if (stage === "pending") {
-    button.textContent = "Start";
-    button.onclick = () => moveToInProgress(task, li);
-  } else if (stage === "in-progress") {
-    button.textContent = "Assign";
-    button.onclick = () => assignResource(task, li);
-  } else if (stage === "resources") {
-    button.textContent = "Complete";
-    button.onclick = () => li.remove();
-  }
-
-  li.appendChild(button);
-  return li;
-}
-
-function moveToInProgress(task, li) {
-  li.remove();
-  const inProgressList = document.getElementById("in-progress");
-  const taskElement = createTaskElement(task, "in-progress");
-  inProgressList.appendChild(taskElement);
-}
-
-function assignResource(task, li) {
-  li.remove();
-  const resourceList = document.getElementById("resources");
-  const assigned = getRandomItem(resources);
-  task.assigned = assigned;
-
-  const liResource = document.createElement("li");
-  liResource.textContent = `👥 ${assigned} assigned to ${task.patient} | ${task.from} → ${task.to} | ${task.priority}`;
-  
-  const button = document.createElement("button");
-  button.textContent = "Complete";
-  button.onclick = () => liResource.remove();
-
-  liResource.appendChild(button);
-  resourceList.appendChild(liResource);
-}
-
-function generatePendingTask() {
-  const task = generateTask();
   const pendingList = document.getElementById("pending");
   if (pendingList) {
-    const li = createTaskElement(task, "pending");
-    pendingList.appendChild(li);
+    const taskElement = generateTaskHTML(task);
+    pendingList.appendChild(taskElement);
   }
+}
+
+function addToInProgress(task, resourceName) {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <strong>${task.id}</strong> | ${task.from} → ${task.to} | ${task.priority} | ${resourceName}
+  `;
+
+  const completeBtn = document.createElement("button");
+  completeBtn.textContent = "Complete";
+  completeBtn.addEventListener("click", () => {
+    const res = resources.find(r => r.name === resourceName);
+    if (res) {
+      res.status = "Available";
+    }
+    li.remove();
+    renderResources();
+  });
+
+  li.appendChild(completeBtn);
+  document.getElementById("in-progress").appendChild(li);
+}
+
+function renderResources() {
+  const resList = document.getElementById("resources");
+  resList.innerHTML = "";
+  resources.forEach(res => {
+    const li = document.createElement("li");
+    li.textContent = `${res.name} | ${res.status} | Last: ${res.lastLocation}`;
+    resList.appendChild(li);
+  });
 }
 
 function updateClock() {
@@ -98,3 +154,5 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 setInterval(generatePendingTask, 10000);
+
+document.addEventListener("DOMContentLoaded", renderResources);
