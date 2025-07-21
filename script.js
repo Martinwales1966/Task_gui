@@ -96,15 +96,26 @@ function generateTaskHTML(task) {
 
 function generatePendingTask() {
   const task = {
-    id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
-    time: getCurrentTime(),
-    requester: getRandomItem(requesters),
-    from: getRandomItem(locations),
-    to: getRandomItem(locations),
-    priority: getRandomItem(priorities),
-    type: getRandomItem(taskTypes),
-    patient: getRandomItem(patients)
-  };
+  id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
+  time: getCurrentTime(),
+  requester: getRandomItem(requesters),
+  from: getRandomItem(locations),
+  to: getRandomItem(locations),
+  priority: getRandomItem(priorities),
+  type: getRandomItem(taskTypes),
+  patient: getRandomItem(patients)
+};
+
+// 🔴 Play alert if emergency
+if (task.priority === "Emergency") {
+  const audio = document.getElementById("emergencySound");
+  if (audio) {
+    audio.play().catch(() => {
+      console.warn("Browser blocked autoplay — requires user interaction first.");
+    });
+  }
+}
+
 
   const pendingList = document.getElementById("pending");
   if (pendingList) {
