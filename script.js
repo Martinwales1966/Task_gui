@@ -100,15 +100,16 @@ if (task.priority === "Emergency") {
 
 function generatePendingTask() {
   const task = {
-  id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
-  time: getCurrentTime(),
-  requester: getRandomItem(requesters),
-  from: getRandomItem(locations),
-  to: getRandomItem(locations),
-  priority: getRandomItem(priorities),
-  type: getRandomItem(taskTypes),
-  patient: getRandomItem(patients)
-};
+    id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
+    time: getCurrentTime(),
+    requester: getRandomItem(requesters),
+    from: getRandomItem(locations),
+    to: getRandomItem(locations),
+    priority: "Emergency", // 🔴 hardcoded for test
+    type: getRandomItem(taskTypes),
+    patient: getRandomItem(patients)
+  };
+
 
 // 🔴 Play alert if emergency
 if (task.priority === "Emergency") {
