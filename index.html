@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Sidebar (vertical navigation) -->
+    <!-- Sidebar -->
     <div class="sidebar">
       <ul>
         <li>🔍 Search</li>
@@ -23,13 +23,12 @@
       </ul>
     </div>
 
-    <!-- Main content area -->
+    <!-- Main Content -->
     <div class="main-content">
       <div class="top-bar">
         <h1>CONTROL DESK</h1>
-         <div id="clock" style="font-weight:bold;"></div>
+        <div id="clock" style="font-weight: bold;"></div>
         <div class="controls">
-          <div id="clock" class="clock"></div>
           <button>New Task</button>
           <button>Scheduled</button>
           <select>
@@ -43,22 +42,22 @@
       </div>
 
       <div class="columns">
-        <!-- Pending -->
-        <div class="column">
+        <!-- Pending Tasks -->
+        <div class="column scrollable">
           <h2>Pending Tasks</h2>
-          <ul id="pending"></ul>
+          <ul id="pending" class="task-list"></ul>
         </div>
 
         <!-- In Progress -->
-        <div class="column">
+        <div class="column scrollable">
           <h2>In Progress Tasks</h2>
-          <ul id="in-progress"></ul>
+          <ul id="in-progress" class="task-list"></ul>
         </div>
 
         <!-- Resources -->
         <div class="column">
           <h2>Resources</h2>
-          <ul id="resources"></ul>
+          <ul id="resources" class="task-list"></ul>
         </div>
       </div>
 
@@ -68,6 +67,6 @@
     </div>
   </div>
 
-<script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
