@@ -90,6 +90,10 @@ function generateTaskHTML(task) {
   li.appendChild(startBtn);
   li.appendChild(holdBtn);
   li.appendChild(cancelBtn);
+if (task.priority === "Emergency") {
+  li.style.border = "2px solid red";
+  li.style.background = "#ffe5e5";
+}
 
   return li;
 }
