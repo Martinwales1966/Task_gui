@@ -13,7 +13,7 @@
       <ul>
         <li>🔍 Search</li>
         <li>⚙️ Settings</li>
-        <li>👤 User</li>
+        <li>👤 Users</li>
         <li>📝 Task Type</li>
         <li>📄 Reports</li>
         <li>📍 Locations</li>
@@ -24,30 +24,42 @@
     </div>
 
     <!-- Main content -->
-    <div class="main-content">
-      <div class="top-bar">
-        <h1>CONTROL DESK</h1>
-        <div id="clock" style="font-weight:bold;"></div>
-        <div class="controls">
-          <button id="new-task-btn">New Task</button>
-          <button>Scheduled</button>
-          <select>
-            <option>Site: All</option>
-          </select>
-          <select>
-            <option>User: Ward-A</option>
-          </select>
-        </div>
-        <div id="broadcast" class="broadcast"></div>
-      </div>
+   <div class="main-content">
+  <div class="top-bar">
+    <h1>CONTROL DESK</h1>
+    <div id="clock" style="font-weight:bold;"></div>
+    <div class="controls">
+      <button id="new-task-btn">New Task</button>
+    </div>
+  </div>
 
-      <div class="columns">
-        <!-- Pending -->
-        <div class="column scrollable">
-          <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
+  <div class="broadcast-wrapper">
+    <div id="broadcast" class="broadcast"></div>
+  </div>
 
-          <ul id="pending"></ul>
-        </div>
+  <div class="columns">
+    <div class="column narrow">
+      <h2>Navigation</h2>
+      <!-- Your nav items -->
+    </div>
+
+    <div class="column medium">
+      <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
+      <ul id="pending" class="scrollable-list"></ul>
+    </div>
+
+    <div class="column medium">
+      <h2>In Progress (<span id="in-progress-count">0</span>)</h2>
+      <ul id="in-progress" class="scrollable-list"></ul>
+    </div>
+
+    <div class="column narrow">
+      <h2>Resources</h2>
+      <ul id="resources"></ul>
+    </div>
+  </div>
+</div>
+
 
         <!-- In Progress -->
         <div class="column scrollable">
