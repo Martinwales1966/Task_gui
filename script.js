@@ -250,6 +250,12 @@ function updateTaskCounters() {
   if (pendingLabel) {
     pendingLabel.textContent = `Pending Tasks (${pendingCount})`;
   }
+function updateTaskCounters() {
+  const pendingCount = document.querySelectorAll("#pending .task-item").length;
+  const inProgressCount = document.querySelectorAll("#in-progress li").length;
+  document.getElementById("pending-count").textContent = pendingCount;
+  document.getElementById("in-progress-count").textContent = inProgressCount;
+}
 
   if (progressLabel) {
     progressLabel.textContent = `In Progress (${inProgressCount})`;
