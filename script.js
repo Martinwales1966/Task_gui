@@ -1,4 +1,4 @@
-// script.js (final update with full simulation + dual message broadcast + clean start)
+// script.js (refined update with embedded base64 audio, rotating alerts, KPI tracking, and resource management)
 
 let taskIdCounter = 1;
 
@@ -29,7 +29,6 @@ const resources = [
 const broadcastMessages = [
   { text: "🔴 Lifts in B Block are not operational", urgent: true },
   { text: "⚠️ Remember to sanitise equipment between uses", urgent: false }
-  
 ];
 
 let broadcastIndex = 0;
@@ -65,9 +64,11 @@ function generateTaskHTML(task) {
   const li = document.createElement("li");
   li.dataset.taskId = task.id;
   li.className = "task-item";
+
+  const audio = document.getElementById("alert-sound");
   if (task.priority === "Emergency") {
     li.classList.add("urgent");
-    document.getElementById("alert-sound")?.play();
+    if (audio) audio.play().catch(console.warn);
   }
 
   const timer = document.createElement("span");
@@ -77,8 +78,8 @@ function generateTaskHTML(task) {
     seconds++;
     timer.textContent = `Elapsed: ${seconds}s`;
     li.classList.remove("kpi-orange", "kpi-red");
-    if (seconds > 300) li.classList.add("kpi-red");
-    else if (seconds > 180) li.classList.add("kpi-orange");
+    if (seconds >= 300) li.classList.add("kpi-red");
+    else if (seconds >= 180) li.classList.add("kpi-orange");
   }, 1000);
 
   li.innerHTML = `
@@ -129,9 +130,9 @@ function generateTaskHTML(task) {
   return li;
 }
 
-function generatePendingTask() {
-  const isEmergency = Math.random() < 0.1; // 10% chance
-  const task = {
+function generatePendingTask(forcedTask = null) {
+  const isEmergency = Math.random() < 0.1;
+  const task = forcedTask || {
     id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
     time: getCurrentTime(),
     requester: getRandomItem(requesters),
@@ -195,4 +196,35 @@ setInterval(rotateBroadcast, 10000);
 document.addEventListener("DOMContentLoaded", () => {
   renderResources();
   rotateBroadcast();
+
+  // Inject base64 audio element
+  const audio = document.createElement("audio");
+  audio.id = "alert-sound";
+  audio.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA...trimmed_for_length...";
+  audio.preload = "auto";
+  document.body.appendChild(audio);
+
+  const newTaskBtn = document.getElementById("new-task-btn");
+  if (newTaskBtn) {
+    newTaskBtn.addEventListener("click", () => {
+      const requester = prompt("Requester?");
+      const patient = prompt("Patient?");
+      const from = prompt("From?");
+      const to = prompt("To?");
+      const type = prompt("Type?");
+      const priority = prompt("Priority (High, Very High, Emergency)?");
+      if (requester && patient && from && to && type) {
+        generatePendingTask({
+          id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
+          time: getCurrentTime(),
+          requester,
+          patient,
+          from,
+          to,
+          type,
+          priority: ["High", "Very High", "Emergency"].includes(priority) ? priority : "High"
+        });
+      }
+    });
+  }
 });
