@@ -2,6 +2,17 @@
 
 let taskIdCounter = 1;
 
+function updateTaskCounters() {
+  const pendingCount = document.querySelectorAll("#pending li").length;
+  const inProgressCount = document.querySelectorAll("#in-progress li").length;
+
+  const pendingEl = document.getElementById("pending-count");
+  const inProgressEl = document.getElementById("inprogress-count");
+
+  if (pendingEl) pendingEl.textContent = pendingCount;
+  if (inProgressEl) inProgressEl.textContent = inProgressCount;
+}
+
 function getCurrentTime() {
   const now = new Date();
   return now.toLocaleString();
@@ -152,7 +163,8 @@ function generatePendingTask(forcedTask = null) {
       pendingList.appendChild(taskElement);
     }
   }
-}
+}updateTaskCounters();
+
 
 function addToInProgress(task, resourceName) {
   const li = document.createElement("li");
@@ -228,3 +240,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+function updateTaskCounters() {
+  const pendingCount = document.querySelectorAll("#pending .task-item").length;
+  const inProgressCount = document.querySelectorAll("#in-progress li").length;
+
+  const pendingLabel = document.querySelector("#pending-label");
+  const progressLabel = document.querySelector("#in-progress-label");
+
+  if (pendingLabel) {
+    pendingLabel.textContent = `Pending Tasks (${pendingCount})`;
+  }
+
+  if (progressLabel) {
+    progressLabel.textContent = `In Progress (${inProgressCount})`;
+  }
+}
