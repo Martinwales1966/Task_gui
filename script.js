@@ -29,7 +29,7 @@ const resources = [
 const broadcastMessages = [
   { text: "🔴 Lifts in B Block are not operational", urgent: true },
   { text: "⚠️ Remember to sanitise equipment between uses", urgent: false }
-  { text: "🔴 You owe Martin a coffee", urgent: true },
+  
 ];
 
 let broadcastIndex = 0;
