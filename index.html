@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
@@ -27,12 +27,16 @@
     <div class="main-content">
       <div class="top-bar">
         <h1>CONTROL DESK</h1>
-        <div id="clock"></div>
+        <div id="clock" style="font-weight:bold;"></div>
         <div class="controls">
           <button id="new-task-btn">New Task</button>
           <button>Scheduled</button>
-          <select><option>Site: All</option></select>
-          <select><option>User: Ward-A</option></select>
+          <select>
+            <option>Site: All</option>
+          </select>
+          <select>
+            <option>User: Ward-A</option>
+          </select>
         </div>
         <div id="broadcast" class="broadcast"></div>
       </div>
@@ -46,12 +50,12 @@
 
         <!-- In Progress -->
         <div class="column scrollable">
-          <h2>In Progress</h2>
+          <h2>In Progress Tasks</h2>
           <ul id="in-progress"></ul>
         </div>
 
         <!-- Resources -->
-        <div class="column narrow">
+        <div class="column resources">
           <h2>Resources</h2>
           <ul id="resources"></ul>
         </div>
@@ -61,7 +65,9 @@
     </div>
   </div>
 
-  <audio id="alert-sound" src="alert.mp3" preload="auto"></audio>
+  <audio id="alert-sound">
+    <source src="data:audio/mp3;base64,//uQxAAADhYWFhYWFhYWFh..." type="audio/mp3" />
+  </audio>
   <script src="script.js" defer></script>
 </body>
 </html>
