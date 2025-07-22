@@ -1,18 +1,19 @@
 body {
+  font-family: sans-serif;
   margin: 0;
-  font-family: Arial, sans-serif;
+  background: #f4f4f4;
 }
 
 .container {
   display: flex;
-  height: 100vh;
 }
 
 .sidebar {
-  width: 150px;
-  background-color: #2c3e50;
+  width: 120px;
+  background: #2c3e50;
   color: white;
-  padding-top: 10px;
+  padding: 10px;
+  min-height: 100vh;
 }
 
 .sidebar ul {
@@ -21,113 +22,102 @@ body {
 }
 
 .sidebar li {
-  padding: 12px;
-  border-bottom: 1px solid #34495e;
-  cursor: pointer;
+  padding: 10px 5px;
+  border-bottom: 1px solid #444;
 }
 
 .main-content {
   flex: 1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
 .top-bar {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #ecf0f1;
+  flex-wrap: wrap;
 }
 
-#clock {
-  font-weight: bold;
-}
-
-.controls select,
-.controls button {
-  margin-left: 10px;
-}
-
-.broadcast {
-  width: 100%;
-  padding: 8px;
-  text-align: center;
-  background-color: black;
-  color: white;
-  animation: scroll-text 20s linear infinite;
-}
-
-.broadcast.urgent {
-  background-color: red;
-  color: white;
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .columns {
   display: flex;
-  flex: 1;
-  overflow: hidden;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .column {
   flex: 1;
-  border-right: 1px solid #ccc;
+  background: white;
   padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  min-height: 200px;
+  max-height: 70vh;
   overflow-y: auto;
 }
 
-.column.narrow {
+.resources {
   flex: 0.6;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.broadcast {
+  margin-top: 10px;
+  padding: 10px;
+  background: black;
+  color: white;
+  animation: scroll-message 10s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.broadcast.urgent {
+  background: red;
+  color: white;
+  font-weight: bold;
 }
 
 .task-item {
-  border: 1px solid #ccc;
-  padding: 8px;
-  margin-bottom: 5px;
-  background-color: #fff;
-  position: relative;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-left: 5px solid green;
 }
 
 .task-item.urgent {
-  animation: flashRed 1s infinite;
+  border-left-color: red;
+  animation: flash-red 1s infinite alternate;
 }
 
 .kpi-orange {
-  border-left: 6px solid orange;
+  border-left-color: orange !important;
 }
 
 .kpi-red {
-  border-left: 6px solid red;
+  border-left-color: red !important;
 }
 
-button {
-  margin-left: 5px;
-  margin-top: 5px;
+@keyframes flash-red {
+  from { background: #ffe6e6; }
+  to { background: #ffcccc; }
 }
 
 footer {
   text-align: center;
-  padding: 10px;
-  background-color: #bdc3c7;
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 0.9em;
+  color: #888;
 }
 
-@keyframes scroll-text {
-  0%   { transform: translateX(100%); }
+@keyframes scroll-message {
+  0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
-}
-
-@keyframes flashRed {
-  0% { background-color: #ffe6e6; }
-  50% { background-color: red; color: white; }
-  100% { background-color: #ffe6e6; }
-}
-
-.scrollable {
-  overflow-y: auto;
 }
