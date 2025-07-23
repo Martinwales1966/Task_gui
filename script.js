@@ -1,30 +1,11 @@
-// script.js (refined update with embedded base64 audio, rotating alerts, KPI tracking, and resource management)
-
 let taskIdCounter = 1;
-
-function updateTaskCounters() {
-  const pendingCount = document.querySelectorAll("#pending li").length;
-  const inProgressCount = document.querySelectorAll("#in-progress li").length;
-
-  const pendingEl = document.getElementById("pending-count");
-  const inProgressEl = document.getElementById("inprogress-count");
-
-  if (pendingEl) pendingEl.textContent = pendingCount;
-  if (inProgressEl) inProgressEl.textContent = inProgressCount;
-}
 
 function getCurrentTime() {
   const now = new Date();
   return now.toLocaleString();
 }
 
-const locations = [
-  "Ward A", "Ward B", "Ward C",
-  "Theatre", "ICU", "X-Ray",
-  "MRI", "ER", "Recovery",
-  "Main Entrance", "Discharge Lounge"
-];
-
+const locations = ["Ward A", "Ward B", "Ward C", "Theatre", "ICU", "X-Ray", "MRI", "ER", "Recovery", "Main Entrance", "Discharge Lounge"];
 const requesters = ["Req A", "Req B", "Req C", "Nurse D", "Dr. Smith"];
 const patients = ["John D.", "Anna K.", "Sam T.", "Lucy P.", "Noah M."];
 const priorities = ["High", "Very High", "Emergency"];
@@ -71,15 +52,20 @@ function createResourceDropdown(taskId) {
   return select;
 }
 
+function updateCounters() {
+  document.getElementById("pending-count").textContent = document.getElementById("pending").children.length;
+  document.getElementById("progress-count").textContent = document.getElementById("in-progress").children.length;
+}
+
 function generateTaskHTML(task) {
   const li = document.createElement("li");
   li.dataset.taskId = task.id;
   li.className = "task-item";
 
-  const audio = document.getElementById("alert-sound");
   if (task.priority === "Emergency") {
     li.classList.add("urgent");
-    if (audio) audio.play().catch(console.warn);
+    const alertSound = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0Yf///w==");
+    alertSound.play().catch(console.warn);
   }
 
   const timer = document.createElement("span");
@@ -120,6 +106,7 @@ function generateTaskHTML(task) {
       addToInProgress(task, resource.name);
       li.remove();
       renderResources();
+      updateCounters();
     }
   });
 
@@ -130,6 +117,7 @@ function generateTaskHTML(task) {
   cancelBtn.addEventListener("click", () => {
     clearInterval(interval);
     li.remove();
+    updateCounters();
   });
 
   li.appendChild(timer);
@@ -162,9 +150,9 @@ function generatePendingTask(forcedTask = null) {
     } else {
       pendingList.appendChild(taskElement);
     }
+    updateCounters();
   }
-}updateTaskCounters();
-
+}
 
 function addToInProgress(task, resourceName) {
   const li = document.createElement("li");
@@ -179,6 +167,7 @@ function addToInProgress(task, resourceName) {
     if (res) res.status = "Available";
     li.remove();
     renderResources();
+    updateCounters();
   });
 
   li.appendChild(completeBtn);
@@ -208,14 +197,7 @@ setInterval(rotateBroadcast, 10000);
 document.addEventListener("DOMContentLoaded", () => {
   renderResources();
   rotateBroadcast();
-
-  // Inject base64 audio element
-  const audio = document.createElement("audio");
-  audio.id = "alert-sound";
-  audio.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA...trimmed_for_length...";
-  audio.preload = "auto";
-  document.body.appendChild(audio);
-
+  updateClock();
   const newTaskBtn = document.getElementById("new-task-btn");
   if (newTaskBtn) {
     newTaskBtn.addEventListener("click", () => {
@@ -240,24 +222,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-function updateTaskCounters() {
-  const pendingCount = document.querySelectorAll("#pending .task-item").length;
-  const inProgressCount = document.querySelectorAll("#in-progress li").length;
-
-  const pendingLabel = document.querySelector("#pending-label");
-  const progressLabel = document.querySelector("#in-progress-label");
-
-  if (pendingLabel) {
-    pendingLabel.textContent = `Pending Tasks (${pendingCount})`;
-  }
-function updateTaskCounters() {
-  const pendingCount = document.querySelectorAll("#pending .task-item").length;
-  const inProgressCount = document.querySelectorAll("#in-progress li").length;
-  document.getElementById("pending-count").textContent = pendingCount;
-  document.getElementById("in-progress-count").textContent = inProgressCount;
-}
-
-  if (progressLabel) {
-    progressLabel.textContent = `In Progress (${inProgressCount})`;
-  }
-}
