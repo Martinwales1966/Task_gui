@@ -5,31 +5,41 @@ function getCurrentTime() {
   return now.toLocaleString();
 }
 
-const locations = ["Ward A", "Ward B", "Ward C", "Theatre", "ICU", "X-Ray", "MRI", "ER", "Recovery", "Main Entrance", "Discharge Lounge"];
-const requesters = ["Req A", "Req B", "Req C", "Nurse D", "Dr. Smith"];
-const patients = ["John D.", "Anna K.", "Sam T.", "Lucy P.", "Noah M."];
+const locations = ["Ward A", "Ward B", "ICU", "Theatre", "ER", "MRI", "X-Ray"];
+const requesters = ["Nurse A", "Dr. B", "Admin C"];
+const patients = ["John", "Emma", "Raj", "Ali"];
+const taskTypes = ["Wheelchair", "Bed", "Escort"];
 const priorities = ["High", "Very High", "Emergency"];
-const taskTypes = ["Chair", "Bed", "Wheelchair", "Escort"];
 
 const resources = [
-  { name: "Alice", status: "Available", lastLocation: "Ward A" },
-  { name: "Bob", status: "Available", lastLocation: "X-Ray" },
-  { name: "Cara", status: "Available", lastLocation: "ICU" },
-  { name: "David", status: "Available", lastLocation: "ER" }
+  { name: "Alice", status: "Available", lastLocation: "ER" },
+  { name: "Bob", status: "Available", lastLocation: "MRI" },
+  { name: "Cara", status: "Available", lastLocation: "ICU" }
 ];
 
 const broadcastMessages = [
   { text: "🔴 Lifts in B Block are not operational", urgent: true },
-  { text: "⚠️ Remember to sanitise equipment between uses", urgent: false }
+  { text: "⚠️ Sanitise equipment between uses", urgent: false }
 ];
 
 let broadcastIndex = 0;
+let audio;
+
+// Embedded emergency alert sound
+const emergencySoundBase64 = "data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEA..."; // truncated
+
+function playEmergencySound() {
+  if (!audio) {
+    audio = new Audio(emergencySoundBase64);
+  }
+  audio.play().catch(console.warn);
+}
 
 function rotateBroadcast() {
   const msg = broadcastMessages[broadcastIndex];
-  const broadcast = document.getElementById("broadcast");
-  broadcast.textContent = msg.text;
-  broadcast.className = msg.urgent ? "broadcast urgent" : "broadcast";
+  const bar = document.getElementById("broadcast");
+  bar.textContent = msg.text;
+  bar.className = msg.urgent ? "broadcast urgent" : "broadcast";
   broadcastIndex = (broadcastIndex + 1) % broadcastMessages.length;
 }
 
@@ -40,7 +50,7 @@ function getRandomItem(arr) {
 function createResourceDropdown(taskId) {
   const select = document.createElement("select");
   select.innerHTML = `<option value="">Assign Resource</option>`;
-  resources.forEach((res) => {
+  resources.forEach(res => {
     if (res.status === "Available") {
       const option = document.createElement("option");
       option.value = res.name;
@@ -48,29 +58,18 @@ function createResourceDropdown(taskId) {
       select.appendChild(option);
     }
   });
-  select.dataset.taskId = taskId;
   return select;
-}
-
-function updateCounters() {
-  document.getElementById("pending-count").textContent = document.getElementById("pending").children.length;
-  document.getElementById("progress-count").textContent = document.getElementById("in-progress").children.length;
 }
 
 function generateTaskHTML(task) {
   const li = document.createElement("li");
-  li.dataset.taskId = task.id;
   li.className = "task-item";
-
-  if (task.priority === "Emergency") {
-    li.classList.add("urgent");
-    const alertSound = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0Yf///w==");
-    alertSound.play().catch(console.warn);
-  }
+  li.dataset.taskId = task.id;
 
   const timer = document.createElement("span");
   timer.textContent = "Elapsed: 0s";
   let seconds = 0;
+
   const interval = setInterval(() => {
     seconds++;
     timer.textContent = `Elapsed: ${seconds}s`;
@@ -79,8 +78,16 @@ function generateTaskHTML(task) {
     else if (seconds >= 180) li.classList.add("kpi-orange");
   }, 1000);
 
-  li.innerHTML = `
-    <strong>${task.id}</strong> | ${task.time} | ${task.requester} | ${task.from} → ${task.to} | ${task.priority} | ${task.type} | ${task.patient}<br>
+  if (task.priority === "Emergency") {
+    li.classList.add("urgent");
+    playEmergencySound();
+  }
+
+  li.innerHTML += `
+    <strong>${task.id}</strong> | ${task.time}<br>
+    ${task.requester} - ${task.patient}<br>
+    ${task.from} → ${task.to}<br>
+    ${task.priority} | ${task.type}<br>
   `;
 
   const dropdown = createResourceDropdown(task.id);
@@ -91,22 +98,22 @@ function generateTaskHTML(task) {
   startBtn.textContent = "Start";
   holdBtn.textContent = "Hold";
   cancelBtn.textContent = "Cancel";
-
   startBtn.disabled = true;
+
   dropdown.addEventListener("change", () => {
     startBtn.disabled = !dropdown.value;
   });
 
   startBtn.addEventListener("click", () => {
-    const resource = resources.find(r => r.name === dropdown.value);
-    if (resource) {
-      resource.status = "On Task";
-      resource.lastLocation = task.to;
+    const res = resources.find(r => r.name === dropdown.value);
+    if (res) {
+      res.status = "On Task";
+      res.lastLocation = task.to;
       clearInterval(interval);
-      addToInProgress(task, resource.name);
+      moveToInProgress(task, res.name);
       li.remove();
-      renderResources();
       updateCounters();
+      renderResources();
     }
   });
 
@@ -135,26 +142,24 @@ function generatePendingTask(forcedTask = null) {
     id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
     time: getCurrentTime(),
     requester: getRandomItem(requesters),
+    patient: getRandomItem(patients),
     from: getRandomItem(locations),
     to: getRandomItem(locations),
     priority: isEmergency ? "Emergency" : getRandomItem(["High", "Very High"]),
-    type: getRandomItem(taskTypes),
-    patient: getRandomItem(patients)
+    type: getRandomItem(taskTypes)
   };
 
+  const el = generateTaskHTML(task);
   const pendingList = document.getElementById("pending");
-  if (pendingList) {
-    const taskElement = generateTaskHTML(task);
-    if (task.priority === "Emergency") {
-      pendingList.prepend(taskElement);
-    } else {
-      pendingList.appendChild(taskElement);
-    }
-    updateCounters();
+  if (task.priority === "Emergency") {
+    pendingList.prepend(el);
+  } else {
+    pendingList.appendChild(el);
   }
+  updateCounters();
 }
 
-function addToInProgress(task, resourceName) {
+function moveToInProgress(task, resourceName) {
   const li = document.createElement("li");
   li.innerHTML = `
     <strong>${task.id}</strong> | ${task.from} → ${task.to} | ${task.priority} | ${resourceName}
@@ -162,63 +167,71 @@ function addToInProgress(task, resourceName) {
 
   const completeBtn = document.createElement("button");
   completeBtn.textContent = "Complete";
+
   completeBtn.addEventListener("click", () => {
     const res = resources.find(r => r.name === resourceName);
     if (res) res.status = "Available";
     li.remove();
-    renderResources();
     updateCounters();
+    renderResources();
   });
 
   li.appendChild(completeBtn);
   document.getElementById("in-progress").appendChild(li);
+  updateCounters();
 }
 
 function renderResources() {
-  const resList = document.getElementById("resources");
-  resList.innerHTML = "";
+  const ul = document.getElementById("resources");
+  ul.innerHTML = "";
   resources.forEach(res => {
     const li = document.createElement("li");
     li.textContent = `${res.name} | ${res.status} | Last: ${res.lastLocation}`;
-    resList.appendChild(li);
+    ul.appendChild(li);
   });
 }
 
 function updateClock() {
-  const now = new Date();
   const clock = document.getElementById("clock");
-  if (clock) clock.textContent = now.toLocaleTimeString();
+  if (clock) clock.textContent = new Date().toLocaleTimeString();
 }
 
-setInterval(updateClock, 1000);
-setInterval(generatePendingTask, 10000);
-setInterval(rotateBroadcast, 10000);
+function updateCounters() {
+  document.getElementById("pending-count").textContent =
+    document.querySelectorAll("#pending .task-item").length;
+  document.getElementById("progress-count").textContent =
+    document.querySelectorAll("#in-progress li").length;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   renderResources();
   rotateBroadcast();
-  updateClock();
-  const newTaskBtn = document.getElementById("new-task-btn");
-  if (newTaskBtn) {
-    newTaskBtn.addEventListener("click", () => {
-      const requester = prompt("Requester?");
-      const patient = prompt("Patient?");
-      const from = prompt("From?");
-      const to = prompt("To?");
-      const type = prompt("Type?");
-      const priority = prompt("Priority (High, Very High, Emergency)?");
-      if (requester && patient && from && to && type) {
-        generatePendingTask({
-          id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
-          time: getCurrentTime(),
-          requester,
-          patient,
-          from,
-          to,
-          type,
-          priority: ["High", "Very High", "Emergency"].includes(priority) ? priority : "High"
-        });
-      }
-    });
-  }
+  updateCounters();
+
+  document.getElementById("new-task-btn").addEventListener("click", () => {
+    const requester = prompt("Requester?");
+    const patient = prompt("Patient?");
+    const from = prompt("From?");
+    const to = prompt("To?");
+    const type = prompt("Type?");
+    const priority = prompt("Priority (High, Very High, Emergency)?");
+    if (requester && patient && from && to && type) {
+      generatePendingTask({
+        id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
+        time: getCurrentTime(),
+        requester,
+        patient,
+        from,
+        to,
+        type,
+        priority: ["High", "Very High", "Emergency"].includes(priority)
+          ? priority
+          : "High"
+      });
+    }
+  });
 });
+
+setInterval(updateClock, 1000);
+setInterval(rotateBroadcast, 10000);
+setInterval(generatePendingTask, 15000);
