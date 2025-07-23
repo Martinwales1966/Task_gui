@@ -1,19 +1,21 @@
 body {
-  font-family: sans-serif;
   margin: 0;
-  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+  background-color: #f0f3f5;
+  overflow-x: hidden;
 }
 
 .container {
   display: flex;
+  height: 100vh;
 }
 
 .sidebar {
-  width: 120px;
-  background: #2c3e50;
+  width: 180px;
+  background-color: #1b2a40;
   color: white;
-  padding: 10px;
-  min-height: 100vh;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
 .sidebar ul {
@@ -23,101 +25,77 @@ body {
 
 .sidebar li {
   padding: 10px 5px;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #2e3c50;
 }
 
-.main-content {
+main {
   flex: 1;
-  padding: 20px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-.top-bar {
+.header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.columns {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.column {
-  flex: 1;
-  background: white;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  min-height: 200px;
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-.resources {
-  flex: 0.6;
+  align-items: center;
+  background-color: #e9eeef;
+  padding: 10px 20px;
 }
 
 .broadcast {
-  margin-top: 10px;
-  padding: 10px;
-  background: black;
+  background-color: black;
   color: white;
-  animation: scroll-message 10s linear infinite;
-  white-space: nowrap;
+  padding: 8px;
+  font-weight: bold;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .broadcast.urgent {
-  background: red;
-  color: white;
-  font-weight: bold;
+  background-color: red;
+}
+
+.dashboard {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.panel {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
 }
 
 .task-item {
   margin-bottom: 10px;
-  padding: 6px;
-  border: 1px solid #ddd;
-  border-left: 5px solid green;
+  padding: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-left: 4px solid #333;
 }
 
 .task-item.urgent {
+  background-color: #ffe5e5;
   border-left-color: red;
-  animation: flash-red 1s infinite alternate;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px red; }
+  50% { box-shadow: 0 0 15px red; }
+  100% { box-shadow: 0 0 5px red; }
 }
 
 .kpi-orange {
-  border-left-color: orange !important;
+  background-color: #fff2cc;
 }
 
 .kpi-red {
-  border-left-color: red !important;
-}
-
-@keyframes flash-red {
-  from { background: #ffe6e6; }
-  to { background: #ffcccc; }
-}
-
-footer {
-  text-align: center;
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: 0.9em;
-  color: #888;
-}
-
-@keyframes scroll-message {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  background-color: #f4cccc;
 }
