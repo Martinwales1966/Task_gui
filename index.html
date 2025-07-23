@@ -11,7 +11,7 @@
     <nav class="sidebar">
       <h2>Control Desk</h2>
       <div id="clock"></div>
-      <button onclick="openTaskForm()">New Task</button>
+      <button onclick="openTaskForm()">+ New Task</button>
     </nav>
 
     <main class="main-content">
@@ -21,17 +21,17 @@
       </div>
 
       <div class="columns">
-        <section class="column" id="pending-tasks-column">
+        <section class="column">
           <h3>Pending Tasks (<span id="pending-counter">0</span>)</h3>
           <ul id="pending-tasks-list"></ul>
         </section>
 
-        <section class="column" id="in-progress-column">
+        <section class="column">
           <h3>In Progress (<span id="inprogress-counter">0</span>)</h3>
           <ul id="inprogress-tasks-list"></ul>
         </section>
 
-        <section class="column" id="resources-column">
+        <section class="column">
           <h3>Resources</h3>
           <ul id="resource-list"></ul>
         </section>
@@ -39,6 +39,6 @@
     </main>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
