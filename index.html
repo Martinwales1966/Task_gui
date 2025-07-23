@@ -4,53 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
-    <aside class="sidebar">
+    <nav class="sidebar">
       <ul>
-        <li>🔍 Search</li>
-        <li>⚙️ Settings</li>
-        <li>👤 User</li>
-        <li>📝 Task Type</li>
-        <li>📊 Reports</li>
-        <li>📍 Locations</li>
-        <li>🗺️ Zones</li>
-        <li>🦽 Wheelchairs</li>
-        <li>🧠 Specialities</li>
+        <li><span>🔍</span> Search</li>
+        <li><span>⚙️</span> Settings</li>
+        <li><span>👤</span> User</li>
+        <li><span>📋</span> Task Type</li>
+        <li><span>📊</span> Reports</li>
+        <li><span>📍</span> Locations</li>
+        <li><span>📌</span> Zones</li>
+        <li><span>🦽</span> Wheelchairs</li>
+        <li><span>🧠</span> Specialties</li>
       </ul>
-    </aside>
+    </nav>
 
-    <main>
+    <main class="main-content">
       <header class="header">
         <h1>CONTROL DESK</h1>
-        <div id="clock">00:00:00</div>
-        <button id="new-task-btn">New Task</button>
+        <div id="clock"></div>
+        <button onclick="createNewTask()">New Task</button>
       </header>
 
-      <div id="broadcast" class="broadcast">🔔 Broadcast Message</div>
+      <div id="broadcast" class="broadcast"></div>
 
       <section class="dashboard">
-        <div class="panel">
+        <div class="column pending">
           <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
-          <ul id="pending" class="task-list"></ul>
+          <ul id="pending-list"></ul>
         </div>
-
-        <div class="panel">
-          <h2>In Progress (<span id="progress-count">0</span>)</h2>
-          <ul id="in-progress" class="task-list"></ul>
+        <div class="column in-progress">
+          <h2>In Progress (<span id="inprogress-count">0</span>)</h2>
+          <ul id="inprogress-list"></ul>
         </div>
-
-        <div class="panel">
+        <div class="column resources">
           <h2>Resources</h2>
-          <ul id="resources" class="task-list"></ul>
+          <ul id="resource-list"></ul>
         </div>
       </section>
     </main>
   </div>
 
-  <audio id="alert-sound" src=""></audio>
+  <audio id="alert-sound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEA..."></audio>
   <script src="script.js"></script>
 </body>
 </html>
