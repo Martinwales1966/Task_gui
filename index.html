@@ -8,79 +8,49 @@
 </head>
 <body>
   <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
+    <aside class="sidebar">
       <ul>
         <li>🔍 Search</li>
         <li>⚙️ Settings</li>
-        <li>👤 Users</li>
+        <li>👤 User</li>
         <li>📝 Task Type</li>
-        <li>📄 Reports</li>
+        <li>📊 Reports</li>
         <li>📍 Locations</li>
         <li>🗺️ Zones</li>
-        <li>♿ Wheelchairs</li>
+        <li>🦽 Wheelchairs</li>
         <li>🧠 Specialities</li>
       </ul>
-    </div>
+    </aside>
 
-    <!-- Main content -->
-   <div class="main-content">
-  <div class="top-bar">
-    <h1>CONTROL DESK</h1>
-    <div id="clock" style="font-weight:bold;"></div>
-    <div class="controls">
-      <button id="new-task-btn">New Task</button>
-    </div>
-  </div>
+    <main>
+      <header class="header">
+        <h1>CONTROL DESK</h1>
+        <div id="clock">00:00:00</div>
+        <button id="new-task-btn">New Task</button>
+      </header>
 
-  <div class="broadcast-wrapper">
-    <div id="broadcast" class="broadcast"></div>
-  </div>
+      <div id="broadcast" class="broadcast">🔔 Broadcast Message</div>
 
-  <div class="columns">
-    <div class="column narrow">
-      <h2>Navigation</h2>
-      <!-- Your nav items -->
-    </div>
-
-    <div class="column medium">
-      <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
-      <ul id="pending" class="scrollable-list"></ul>
-    </div>
-
-    <div class="column medium">
-      <h2>In Progress (<span id="in-progress-count">0</span>)</h2>
-      <ul id="in-progress" class="scrollable-list"></ul>
-    </div>
-
-    <div class="column narrow">
-      <h2>Resources</h2>
-      <ul id="resources"></ul>
-    </div>
-  </div>
-</div>
-
-
-        <!-- In Progress -->
-        <div class="column scrollable">
-          <h2>In Progress (<span id="inprogress-count">0</span>)</h2>
-          <ul id="in-progress"></ul>
+      <section class="dashboard">
+        <div class="panel">
+          <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
+          <ul id="pending" class="task-list"></ul>
         </div>
 
-        <!-- Resources -->
-        <div class="column resources">
+        <div class="panel">
+          <h2>In Progress (<span id="progress-count">0</span>)</h2>
+          <ul id="in-progress" class="task-list"></ul>
+        </div>
+
+        <div class="panel">
           <h2>Resources</h2>
-          <ul id="resources"></ul>
+          <ul id="resources" class="task-list"></ul>
         </div>
-      </div>
-
-      <footer>Designed by M Henson</footer>
-    </div>
+      </section>
+    </main>
   </div>
 
-  <audio id="alert-sound">
-    <source src="data:audio/mp3;base64,//uQxAAADhYWFhYWFhYWFh..." type="audio/mp3" />
-  </audio>
-  <script src="script.js" defer></script>
+  <audio id="alert-sound" src=""></audio>
+  <script src="script.js"></script>
 </body>
 </html>
