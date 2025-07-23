@@ -3,49 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Task Dashboard GUI</title>
+  <title>Control Desk</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Control Desk</h2>
-    <div id="clock"></div>
-    <button id="new-task-btn">➕ New Task</button>
+  <div class="container">
+    <nav class="sidebar">
+      <h2>Control Desk</h2>
+      <div id="clock"></div>
+      <button onclick="openTaskForm()">New Task</button>
+    </nav>
+
+    <main class="main-content">
+      <div class="alert-bar" id="alert-bar">
+        <span class="alert-dot">🔴</span>
+        <span id="alert-text">Lifts in B Block are not operational</span>
+      </div>
+
+      <div class="columns">
+        <section class="column" id="pending-tasks-column">
+          <h3>Pending Tasks (<span id="pending-counter">0</span>)</h3>
+          <ul id="pending-tasks-list"></ul>
+        </section>
+
+        <section class="column" id="in-progress-column">
+          <h3>In Progress (<span id="inprogress-counter">0</span>)</h3>
+          <ul id="inprogress-tasks-list"></ul>
+        </section>
+
+        <section class="column" id="resources-column">
+          <h3>Resources</h3>
+          <ul id="resource-list"></ul>
+        </section>
+      </div>
+    </main>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Broadcast Message -->
-    <div id="broadcast" class="broadcast"></div>
-
-    <!-- Dashboard Grid -->
-    <div class="dashboard">
-      <!-- Pending Tasks -->
-      <div class="column">
-        <h2>Pending Tasks (<span id="pending-count">0</span>)</h2>
-        <ul id="pending" class="task-list"></ul>
-      </div>
-
-      <!-- In Progress Tasks -->
-      <div class="column">
-        <h2>In Progress (<span id="in-progress-count">0</span>)</h2>
-        <ul id="in-progress" class="task-list"></ul>
-      </div>
-
-      <!-- Resources -->
-      <div class="column resources-col">
-        <h2>Resources</h2>
-        <ul id="resources" class="task-list"></ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Base64 Sound Alert -->
-  <audio id="alert-sound">
-    <source src="data:audio/mp3;base64,//uQx...<truncated_base64>" type="audio/mp3" />
-  </audio>
-
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
