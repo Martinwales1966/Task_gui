@@ -60,16 +60,19 @@ function updateCounters() {
   const pendingCounter = document.getElementById("pending-counter");
   const inprogressCounter = document.getElementById("inprogress-counter");
 
-  if (pendingCounter) pendingCounter.textContent = pendingTasks.length;
-  if (inprogressCounter) inprogressCounter.textContent = inProgressTasks.length;
+  if (pendingCounter) {
+    pendingCounter.textContent = pendingTasks.length;
+  } else {
+    console.warn("Missing element: #pending-counter");
+  }
+
+  if (inprogressCounter) {
+    inprogressCounter.textContent = inProgressTasks.length;
+  } else {
+    console.warn("Missing element: #inprogress-counter");
+  }
 }
 
-function renderResources() {
-  const list = document.getElementById("resource-list");
-  if (!list) {
-    console.error("resource-list not found in DOM.");
-    return;
-  }
 
   list.innerHTML = "";
   resources.forEach(r => {
