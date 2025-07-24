@@ -28,7 +28,10 @@ function renderTasks() {
   const pendingList = document.getElementById("pending-tasks-list");
   const progressList = document.getElementById("inprogress-tasks-list");
 
-  if (!pendingList || !progressList) return;
+  if (!pendingList || !progressList) {
+    console.error("Missing task list elements in DOM.");
+    return;
+  }
 
   pendingList.innerHTML = "";
   progressList.innerHTML = "";
@@ -63,7 +66,10 @@ function updateCounters() {
 
 function renderResources() {
   const list = document.getElementById("resource-list");
-  if (!list) return;
+  if (!list) {
+    console.error("resource-list not found in DOM.");
+    return;
+  }
 
   list.innerHTML = "";
   resources.forEach(r => {
