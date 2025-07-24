@@ -1,1 +1,89 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #333;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#broadcast {
+  background: #222;
+  color: white;
+  padding: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.broadcast.urgent {
+  background-color: red;
+  color: white;
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 90px);
+}
+
+nav {
+  width: 200px;
+  background: #eee;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+section {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+}
+
+.task-item {
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.task-item.urgent {
+  border-color: red;
+  background-color: #ffe5e5;
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  0% { background-color: #ffe5e5; }
+  50% { background-color: #ff0000; color: white; }
+  100% { background-color: #ffe5e5; }
+}
+
+.kpi-orange {
+  background-color: #fff3cd;
+}
+
+.kpi-red {
+  background-color: #f8d7da;
+}
+
+#resources,
+#pending-tasks-list,
+#inprogress-tasks-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+button {
+  margin: 2px;
+}
 
