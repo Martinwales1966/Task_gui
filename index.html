@@ -3,42 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Task GUI</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Control Desk</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <header>
-    <h1>🚑 Task Dashboard</h1>
-    <div id="clock"></div>
-  </header>
-
-  <div class="broadcast-wrapper">
-    <div id="broadcast" class="broadcast">Welcome to the dashboard</div>
-  </div>
-
   <div class="container">
-    <aside class="sidebar">
-      <h2>Resources</h2>
-      <ul id="resources"></ul>
-    </aside>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li>🔍 Search</li>
+        <li>⚙️ Settings</li>
+        <li>👤 User</li>
+        <li>📝 Task Type</li>
+        <li>📄 Reports</li>
+        <li>📍 Locations</li>
+        <li>🗺️ Zones</li>
+        <li>♿ Wheelchairs</li>
+        <li>🧠 Specialities</li>
+      </ul>
+    </div>
 
-    <main class="main-content">
-      <section>
-        <h2>Pending Tasks (<span id="pending-counter">0</span>)</h2>
-        <ul id="pending-tasks-list" class="task-list"></ul>
-      </section>
+    <!-- Main content -->
+    <div class="main-content">
+      <div class="top-bar">
+        <h1>CONTROL DESK</h1>
+        <div id="clock" style="font-weight:bold;"></div>
+        <button id="new-task-btn">New Task</button>
+        <div id="broadcast" class="broadcast urgent">
+          🔴 Lifts in B Block are not operational
+        </div>
+      </div>
 
-      <section>
-        <h2>In Progress (<span id="inprogress-counter">0</span>)</h2>
-        <ul id="inprogress-tasks-list" class="task-list"></ul>
-      </section>
+      <div class="columns">
+        <!-- Pending -->
+        <div class="column scrollable">
+          <h2>Pending Tasks</h2>
+          <ul id="pending"></ul>
+        </div>
 
-      <button id="new-task-btn">➕ New Task</button>
-    </main>
+        <!-- In Progress -->
+        <div class="column scrollable">
+          <h2>In Progress</h2>
+          <ul id="in-progress"></ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="column slim">
+          <h2>Resources</h2>
+          <ul id="resources"></ul>
+        </div>
+      </div>
+
+      <footer>Designed by M Henson</footer>
+    </div>
   </div>
 
-  <audio id="alert-sound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEA..."></audio>
-
-  <script src="script.js"></script>
+  <audio id="alert-sound" src="alert.mp3" preload="auto"></audio>
+  <script src="script.js" defer></script>
 </body>
 </html>
