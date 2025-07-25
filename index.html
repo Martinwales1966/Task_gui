@@ -3,48 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Control Desk</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Task GUI</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
+    <h1>🚑 Task Dashboard</h1>
+    <div id="clock"></div>
+  </header>
+
+  <div class="broadcast-wrapper">
+    <div id="broadcast" class="broadcast">Welcome to the dashboard</div>
+  </div>
+
   <div class="container">
     <aside class="sidebar">
-      <h2>Navigation</h2>
-      <ul>
-        <li><button onclick="openTaskForm()">+ New Task</button></li>
-      </ul>
-      <h3>Resources</h3>
-      <ul id="resource-list"></ul>
+      <h2>Resources</h2>
+      <ul id="resources"></ul>
     </aside>
 
     <main class="main-content">
-      <div class="top-bar">
-        <h1>CONTROL DESK</h1>
-        <div id="clock"></div>
-      </div>
+      <section>
+        <h2>Pending Tasks (<span id="pending-counter">0</span>)</h2>
+        <ul id="pending-tasks-list" class="task-list"></ul>
+      </section>
 
-      <div class="message-bar" id="message-bar">⚠️ Emergency lifts in B block not operational ⚠️</div>
+      <section>
+        <h2>In Progress (<span id="inprogress-counter">0</span>)</h2>
+        <ul id="inprogress-tasks-list" class="task-list"></ul>
+      </section>
 
-      <div class="task-columns">
-        <section>
-          <h3>Pending Tasks (<span id="pending-counter">0</span>)</h3>
-          <ul id="pending-tasks-list"></ul>
-        </section>
-
-        <section>
-          <h3>In Progress (<span id="inprogress-counter">0</span>)</h3>
-          <ul id="inprogress-tasks-list"></ul>
-        </section>
-
-        <aside class="kpi-panel">
-          <h3>KPI Metrics</h3>
-          <p>Avg Response: <span id="avg-response">0s</span></p>
-          <p>Total Tasks: <span id="total-tasks">0</span></p>
-          <p>Emergency Tasks: <span id="emergency-tasks">0</span></p>
-        </aside>
-      </div>
+      <button id="new-task-btn">➕ New Task</button>
     </main>
   </div>
-  <script src="script.js" defer></script>
+
+  <audio id="alert-sound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEA..."></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
