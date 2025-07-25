@@ -1,87 +1,116 @@
-body {
-  font-family: Arial, sans-serif;
+body, html {
   margin: 0;
-  background: #f5f5f5;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #005a87;
-  color: white;
-  padding: 10px 20px;
+  padding: 0;
+  font-family: sans-serif;
 }
 
 .container {
   display: flex;
-  flex-direction: row;
-  padding: 10px;
 }
 
 .sidebar {
-  width: 200px;
-  background: #e0e0e0;
+  width: 160px;
+  background: #222;
+  color: #fff;
+  min-height: 100vh;
   padding: 10px;
-  margin-right: 10px;
 }
 
-.main-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-section {
-  background: white;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.task-list {
+.sidebar ul {
   list-style: none;
   padding: 0;
 }
 
-.task-list li {
-  background: #fafafa;
-  padding: 8px;
-  margin-bottom: 5px;
-  border-left: 4px solid #2196f3;
+.sidebar li {
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
 }
 
-.task-list li.urgent {
-  border-left-color: red;
-  background: #ffe5e5;
-  animation: flash 1s infinite;
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f5f5f5;
 }
 
-@keyframes flash {
-  0%, 100% { background-color: #ffe5e5; }
-  50% { background-color: #ffcccc; }
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.broadcast-wrapper {
-  background: #333;
-  color: white;
-  overflow: hidden;
+.columns {
+  display: flex;
+  gap: 10px;
+}
+
+.column {
+  flex: 1;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  min-height: 300px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.column.slim {
+  flex: 0.6;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+.task-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-left: 5px solid green;
+  background: #eef;
+}
+
+.task-item.kpi-orange {
+  border-color: orange;
+}
+
+.task-item.kpi-red {
+  border-color: red;
+}
+
+.task-item.urgent {
+  background: #ffcccc;
+  animation: flash-red 1s infinite;
+}
+
+@keyframes flash-red {
+  0%, 100% { background-color: #ffcccc; }
+  50% { background-color: #ff0000; }
 }
 
 .broadcast {
+  padding: 8px;
+  font-weight: bold;
+  color: white;
   white-space: nowrap;
-  padding: 5px 10px;
-  animation: scroll-left 10s linear infinite;
+  overflow: hidden;
+  animation: scroll 12s linear infinite;
 }
 
-@keyframes scroll-left {
+.broadcast.urgent {
+  background: red;
+  animation: flash-urgent 2s ease-in-out 2, hold 2s ease-in-out 1 forwards, scroll 12s linear infinite;
+}
+
+@keyframes flash-urgent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes hold {
+  0%, 100% { opacity: 1; }
+}
+
+@keyframes scroll {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
-}
-
-button {
-  margin-top: 5px;
-  margin-right: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
 }
