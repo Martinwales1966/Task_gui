@@ -27,11 +27,14 @@
     <div class="main-content">
       <div class="top-bar">
         <h1>CONTROL DESK</h1>
-        <div id="clock" style="font-weight:bold;"></div>
-        <button id="new-task-btn">New Task</button>
-        <div id="broadcast" class="broadcast urgent">
-          🔴 Lifts in B Block are not operational
+        <div id="clock"></div>
+        <div class="controls">
+          <button id="new-task-btn">New Task</button>
+          <button>Scheduled</button>
+          <select><option>Site: All</option></select>
+          <select><option>User: Ward-A</option></select>
         </div>
+        <div id="broadcast" class="broadcast"></div>
       </div>
 
       <div class="columns">
@@ -48,7 +51,7 @@
         </div>
 
         <!-- Resources -->
-        <div class="column slim">
+        <div class="column narrow">
           <h2>Resources</h2>
           <ul id="resources"></ul>
         </div>
