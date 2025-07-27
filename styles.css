@@ -39,6 +39,12 @@ body, html {
   margin-bottom: 20px;
 }
 
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .columns {
   display: flex;
   gap: 10px;
