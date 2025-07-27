@@ -65,20 +65,18 @@ function renderTasks() {
   pendingList.innerHTML = "";
   progressList.innerHTML = "";
 
-  // ✅ Sort so Emergency tasks come first
-  const sortedPending = [...pendingTasks].sort((a, b) => {
+  // Sort by priority (Emergency first)
+  const sorted = [...pendingTasks].sort((a, b) => {
     if (a.priority === "Emergency" && b.priority !== "Emergency") return -1;
-    if (a.priority !== "Emergency" && b.priority === "Emergency") return 1;
+    if (b.priority === "Emergency" && a.priority !== "Emergency") return 1;
     return 0;
   });
 
-  sortedPending.forEach(task => {
+  sorted.forEach(task => {
     const li = document.createElement("li");
-
-    // ✅ Add styling classes based on priority
     li.className = "task-item";
-    if (task.priority === "Emergency") li.classList.add("urgent", "kpi-red");
-    else if (task.priority === "High") li.classList.add("kpi-orange");
+    if (task.priority === "Emergency") li.classList.add("urgent");
+    if (task.priority === "High") li.classList.add("kpi-orange");
 
     li.innerHTML = `
       <strong>${task.id}</strong> | ${task.time}<br>
@@ -86,26 +84,61 @@ function renderTasks() {
       ${task.from} → ${task.to}<br>
       ${task.priority} | Escort<br>
       <small>Elapsed: 0s</small><br>
-     const resourceOptions = resources.map(r => `<option>${r.name}</option>`).join('');
-li.innerHTML = `
-  <strong>${task.id}</strong> | ${task.time}<br>
-  ${task.requester} - ${task.escort}<br>
-  ${task.from} → ${task.to}<br>
-  ${task.priority} | Escort<br>
-  <small>Elapsed: 0s</small><br>
-  <select>
-    <option disabled selected>Assign Resource</option>
-    ${resourceOptions}
-  </select>
-  <button>Start</button>
-  <button>Hold</button>
-  <button>Cancel</button>
-`;
-      <button>Start</button>
-      <button>Hold</button>
-      <button>Cancel</button>
     `;
+
+    const select = document.createElement("select");
+    const defaultOption = document.createElement("option");
+    defaultOption.textContent = "Assign Resource";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.appendChild(defaultOption);
+
+    resources.forEach(r => {
+      const option = document.createElement("option");
+      option.value = r.name;
+      option.textContent = r.name;
+      select.appendChild(option);
+    });
+
+    const startBtn = document.createElement("button");
+    startBtn.textContent = "Start";
+    startBtn.addEventListener("click", () => {
+      const selectedResource = select.value;
+      if (!selectedResource || selectedResource === "Assign Resource") {
+        alert("Please assign a resource first.");
+        return;
+      }
+      // Move to In Progress
+      inProgressTasks.push({ ...task, assigned: selectedResource });
+      pendingTasks = pendingTasks.filter(t => t.id !== task.id);
+      renderTasks();
+    });
+
+    const holdBtn = document.createElement("button");
+    holdBtn.textContent = "Hold";
+    const cancelBtn = document.createElement("button");
+    cancelBtn.textContent = "Cancel";
+
+    li.appendChild(select);
+    li.appendChild(startBtn);
+    li.appendChild(holdBtn);
+    li.appendChild(cancelBtn);
+
     pendingList.appendChild(li);
+  });
+
+  inProgressTasks.forEach(task => {
+    const li = document.createElement("li");
+    li.className = "task-item kpi-red";
+    li.innerHTML = `
+      <strong>${task.id}</strong> | ${task.time}<br>
+      Assigned: ${task.assigned}<br>
+      ${task.from} → ${task.to}<br>
+      ${task.priority} | In Progress<br>
+      <small>Started at: ${task.time}</small><br>
+      <button>End</button>
+    `;
+    progressList.appendChild(li);
   });
 
   updateCounters();
