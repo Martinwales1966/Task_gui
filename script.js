@@ -65,9 +65,21 @@ function renderTasks() {
   pendingList.innerHTML = "";
   progressList.innerHTML = "";
 
-  pendingTasks.forEach(task => {
+  // ✅ Sort so Emergency tasks come first
+  const sortedPending = [...pendingTasks].sort((a, b) => {
+    if (a.priority === "Emergency" && b.priority !== "Emergency") return -1;
+    if (a.priority !== "Emergency" && b.priority === "Emergency") return 1;
+    return 0;
+  });
+
+  sortedPending.forEach(task => {
     const li = document.createElement("li");
-    li.className = `task-item ${task.priority === "Emergency" ? "urgent" : ""}`;
+
+    // ✅ Add styling classes based on priority
+    li.className = "task-item";
+    if (task.priority === "Emergency") li.classList.add("urgent", "kpi-red");
+    else if (task.priority === "High") li.classList.add("kpi-orange");
+
     li.innerHTML = `
       <strong>${task.id}</strong> | ${task.time}<br>
       ${task.requester} - ${task.escort}<br>
