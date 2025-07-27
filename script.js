@@ -2,36 +2,11 @@ let taskIdCounter = 1;
 let pendingTasks = [];
 let inProgressTasks = [];
 
-const resources = [
+let resources = [
   { name: "Alice", status: "Available", last: "ER" },
   { name: "Bob", status: "Available", last: "MRI" },
   { name: "Cara", status: "Available", last: "ICU" }
 ];
-
-const broadcastMessages = [
-  { text: "🔴 Lift B is out of order", urgent: true },
-  { text: "⚠️ Remember to sanitize after each use", urgent: false }
-];
-let broadcastIndex = 0;
-
-function rotateBroadcast() {
-  const msg = broadcastMessages[broadcastIndex];
-  const el = document.getElementById("broadcast");
-  el.textContent = msg.text;
-  el.className = msg.urgent ? "broadcast urgent" : "broadcast";
-  broadcastIndex = (broadcastIndex + 1) % broadcastMessages.length;
-}
-setInterval(rotateBroadcast, 10000);
-
-function renderResources() {
-  const list = document.getElementById("resources");
-  list.innerHTML = "";
-  resources.forEach(r => {
-    const li = document.createElement("li");
-    li.textContent = `${r.name} | ${r.status} | Last: ${r.last}`;
-    list.appendChild(li);
-  });
-}
 
 function updateClock() {
   const now = new Date();
@@ -42,6 +17,7 @@ setInterval(updateClock, 1000);
 updateClock();
 
 function openTaskForm() {
+  // This simulates a new task creation
   generatePendingTask({
     id: `TASK-${String(taskIdCounter++).padStart(4, "0")}`,
     time: new Date().toLocaleTimeString(),
@@ -49,7 +25,7 @@ function openTaskForm() {
     escort: "Emma",
     from: "Ward A",
     to: "X-Ray",
-    priority: Math.random() < 0.2 ? "Emergency" : "High"
+    priority: ["Emergency", "High", "Normal"][Math.floor(Math.random() * 3)]
   });
 }
 
@@ -58,18 +34,42 @@ function generatePendingTask(task) {
   renderTasks();
 }
 
+function renderResources() {
+  const list = document.getElementById("resource-list");
+  if (!list) return;
+
+  list.innerHTML = "";
+  resources.forEach(r => {
+    const li = document.createElement("li");
+    li.textContent = `${r.name} | ${r.status} | Last: ${r.last}`;
+    list.appendChild(li);
+  });
+}
+
+function updateCounters() {
+  const pendingCounter = document.getElementById("pending-counter");
+  const inprogressCounter = document.getElementById("inprogress-counter");
+
+  if (pendingCounter) pendingCounter.textContent = pendingTasks.length;
+  if (inprogressCounter) inprogressCounter.textContent = inProgressTasks.length;
+}
+
 function renderTasks() {
   const pendingList = document.getElementById("pending");
   const progressList = document.getElementById("in-progress");
+
+  if (!pendingList || !progressList) {
+    console.error("Missing task list elements in DOM.");
+    return;
+  }
 
   pendingList.innerHTML = "";
   progressList.innerHTML = "";
 
   // Sort by priority (Emergency first)
   const sorted = [...pendingTasks].sort((a, b) => {
-    if (a.priority === "Emergency" && b.priority !== "Emergency") return -1;
-    if (b.priority === "Emergency" && a.priority !== "Emergency") return 1;
-    return 0;
+    const p = { "Emergency": 1, "High": 2, "Normal": 3 };
+    return p[a.priority] - p[b.priority];
   });
 
   sorted.forEach(task => {
@@ -108,7 +108,6 @@ function renderTasks() {
         alert("Please assign a resource first.");
         return;
       }
-      // Move to In Progress
       inProgressTasks.push({ ...task, assigned: selectedResource });
       pendingTasks = pendingTasks.filter(t => t.id !== task.id);
       renderTasks();
@@ -116,6 +115,7 @@ function renderTasks() {
 
     const holdBtn = document.createElement("button");
     holdBtn.textContent = "Hold";
+
     const cancelBtn = document.createElement("button");
     cancelBtn.textContent = "Cancel";
 
@@ -144,17 +144,3 @@ function renderTasks() {
   updateCounters();
   renderResources();
 }
-
-function updateCounters() {
-  document.getElementById("pending-counter").textContent = pendingTasks.length;
-  document.getElementById("inprogress-counter").textContent = inProgressTasks.length;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderResources();
-  rotateBroadcast();
-  document.getElementById("new-task-btn").addEventListener("click", openTaskForm);
-});
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("new-task-btn").addEventListener("click", openTaskForm);
-});
