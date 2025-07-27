@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Control Desk</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <div class="container">
@@ -40,18 +40,18 @@
       <div class="columns">
         <!-- Pending -->
         <div class="column scrollable">
-          <h2>Pending Tasks</h2>
+          <h2>Pending Tasks (<span id="pending-counter">0</span>)</h2>
           <ul id="pending"></ul>
         </div>
 
         <!-- In Progress -->
         <div class="column scrollable">
-          <h2>In Progress</h2>
+          <h2>In Progress (<span id="inprogress-counter">0</span>)</h2>
           <ul id="in-progress"></ul>
         </div>
 
         <!-- Resources -->
-        <div class="column narrow">
+        <div class="column slim">
           <h2>Resources</h2>
           <ul id="resources"></ul>
         </div>
