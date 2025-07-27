@@ -96,3 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
   rotateBroadcast();
   document.getElementById("new-task-btn").addEventListener("click", openTaskForm);
 });
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("new-task-btn").addEventListener("click", openTaskForm);
+});
