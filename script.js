@@ -49,7 +49,7 @@ function openTaskForm() {
     escort: "Emma",
     from: "Ward A",
     to: "X-Ray",
-    priority: Math.random() < 0.1 ? "Emergency" : "High"
+    priority: Math.random() < 0.2 ? "Emergency" : "High"
   });
 }
 
@@ -59,15 +59,15 @@ function generatePendingTask(task) {
 }
 
 function renderTasks() {
-  const pendingList = document.getElementById("pending-tasks-list");
-  const progressList = document.getElementById("inprogress-tasks-list");
+  const pendingList = document.getElementById("pending");
+  const progressList = document.getElementById("in-progress");
 
   pendingList.innerHTML = "";
   progressList.innerHTML = "";
 
   pendingTasks.forEach(task => {
     const li = document.createElement("li");
-    li.className = task.priority === "Emergency" ? "urgent" : "";
+    li.className = `task-item ${task.priority === "Emergency" ? "urgent" : ""}`;
     li.innerHTML = `
       <strong>${task.id}</strong> | ${task.time}<br>
       ${task.requester} - ${task.escort}<br>
