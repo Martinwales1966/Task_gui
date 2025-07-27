@@ -86,7 +86,21 @@ function renderTasks() {
       ${task.from} → ${task.to}<br>
       ${task.priority} | Escort<br>
       <small>Elapsed: 0s</small><br>
-      <select><option>Assign Resource</option></select>
+     const resourceOptions = resources.map(r => `<option>${r.name}</option>`).join('');
+li.innerHTML = `
+  <strong>${task.id}</strong> | ${task.time}<br>
+  ${task.requester} - ${task.escort}<br>
+  ${task.from} → ${task.to}<br>
+  ${task.priority} | Escort<br>
+  <small>Elapsed: 0s</small><br>
+  <select>
+    <option disabled selected>Assign Resource</option>
+    ${resourceOptions}
+  </select>
+  <button>Start</button>
+  <button>Hold</button>
+  <button>Cancel</button>
+`;
       <button>Start</button>
       <button>Hold</button>
       <button>Cancel</button>
