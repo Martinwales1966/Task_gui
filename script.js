@@ -3,7 +3,7 @@ let pendingTasks = [];
 let inProgressTasks = [];
 
 const resources = [
-  { name: "Meghan", status: "Available", last: "ER" },
+  { name: "Alice", status: "Available", last: "ER" },
   { name: "Bob", status: "Available", last: "MRI" },
   { name: "Cara", status: "Available", last: "ICU" }
 ];
